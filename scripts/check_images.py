@@ -32,7 +32,7 @@ def parse(image):
     else:
         host, path = "registry-1.docker.io", name if "/" in name else f"library/{name}"
     if host == "docker.io":
-        host = "registry-1.docker.io"
+        host, path = "registry-1.docker.io", path if "/" in path else f"library/{path}"
     repo, _, tag = path.rpartition(":") if ":" in path.rsplit("/", 1)[-1] else (path, "", "latest")
     return host, repo, digest or tag
 
