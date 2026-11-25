@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>podkit templates</title>
+<meta name="description" content="One-click services for podkit: browse the catalog and deploy a template to your own server.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+	<a class="brand" href="./"><img src="favicon.svg" alt="" width="24" height="24">podkit templates</a>
+	<nav>
+		<a href="https://github.com/podoes/podkit-templates">Add a template</a>
+		<button type="button" id="server-button" class="quiet">Set your podkit address</button>
+	</nav>
+</header>
+
+<main>
+	<section class="intro">
+		<h1>Services you can run on your own server</h1>
+		<p id="count">Loading the catalog…</p>
+	</section>
+
+	<form class="filters" role="search" onsubmit="return false">
+		<label class="search">
+			<span class="sr">Search templates</span>
+			<input id="q" type="search" placeholder="Search by name, tag or description" autocomplete="off">
+		</label>
+		<label>
+			<span class="sr">Category</span>
+			<select id="category"><option value="">All categories</option></select>
+		</label>
+		<label class="check"><input id="hide-flagged" type="checkbox"> Hide broken and unmaintained</label>
+	</form>
+
+	<p id="empty" class="empty" hidden>No template matches. Try fewer words or another category.</p>
+	<ul id="grid" class="grid"></ul>
+</main>
+
+<dialog id="detail" aria-labelledby="d-name">
+	<form method="dialog"><button class="close" aria-label="Close">×</button></form>
+	<div class="d-head">
+		<img id="d-logo" alt="" width="56" height="56">
+		<div>
+			<h2 id="d-name"></h2>
+			<p id="d-meta" class="muted"></p>
+		</div>
+	</div>
+	<p id="d-status" class="status" hidden></p>
+	<p id="d-description"></p>
+	<p id="d-links" class="links"></p>
+
+	<h3>Deploy</h3>
+	<p><a id="d-deploy" class="button" href="#" rel="noopener">Deploy to my podkit</a></p>
+	<p class="muted" id="d-deploy-note"></p>
+
+	<h3>From the command line</h3>
+	<div class="copy"><code id="d-cli"></code><button type="button" id="d-copy" class="quiet">Copy</button></div>
+
+	<h3>Files</h3>
+	<p class="muted">Download these to import the template by hand. podkit marks an imported file as unofficial.</p>
+	<p id="d-files" class="links"></p>
+
+	<h3>Credits</h3>
+	<p id="d-credits" class="muted"></p>
+</dialog>
+
+<dialog id="server" aria-labelledby="s-title">
+	<form method="dialog" id="server-form">
+		<h2 id="s-title">Your podkit address</h2>
+		<p class="muted">The deploy button opens this template on your own server, where you confirm it. The address stays in this browser.</p>
+		<label>Address <input id="server-input" type="url" placeholder="https://podkit.example.com" required></label>
+		<p class="actions"><button value="cancel" class="quiet" formnovalidate>Cancel</button><button value="save" class="button">Save</button></p>
+	</form>
+</dialog>
+
+<footer>
+	<p>Templates are free. Logos are trademarks of their owners and identify the software a template installs.</p>
+</footer>
+<script src="app.js" defer></script>
+</body>
+</html>
