@@ -47,6 +47,10 @@ A preset is for any team on any podkit, so nothing in it names one install:
 Export a project from podkit (`podkit export`) and save it as a preset there to get a file
 in this shape.
 
+Before you open a pull request, apply the preset on a podkit and check that its plan has
+nothing to fix. The build here cannot know podkit's rules: a database name, for one, is unique
+in a project across its environments.
+
 ## Before you open a pull request
 
 1. Run `scripts/build.py --check`.

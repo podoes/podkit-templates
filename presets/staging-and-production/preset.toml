@@ -17,10 +17,10 @@ engine = "redis"
 [projects.app.environments.staging]
 name = "Staging"
 
-[projects.app.environments.staging.databases.main]
+[projects.app.environments.staging.databases.main-staging]
 server = "${choose}"
 engine = "postgres"
 
-[projects.app.environments.staging.databases.cache]
+[projects.app.environments.staging.databases.cache-staging]
 server = "${choose}"
 engine = "redis"
