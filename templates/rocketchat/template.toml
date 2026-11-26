@@ -8,6 +8,8 @@ logo = "logo.png"
 website = "https://rocket.chat/"
 docs = "https://rocket.chat/docs/"
 source = "https://github.com/RocketChat/Rocket.Chat"
+status = "broken"
+status_note = "Its bitnami/mongodb image tag is no longer published."
 upstream = "Dokploy/templates@6313a2e blueprints/rocketchat"
 
 [variables]

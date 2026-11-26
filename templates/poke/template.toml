@@ -14,6 +14,8 @@ logo = "logo.png"
 website = "https://poketube.fun/"
 docs = "https://codeberg.org/ashleyirispuppy/poke"
 source = "https://codeberg.org/ashleyirispuppy/poke"
+status = "broken"
+status_note = "Its image can no longer be pulled from codeberg.org."
 upstream = "Dokploy/templates@6313a2e blueprints/poke"
 
 [variables]

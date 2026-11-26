@@ -13,6 +13,8 @@ logo = "logo.svg"
 website = "https://github.com/Maciejonos/qbitwebui"
 docs = "https://github.com/Maciejonos/qbitwebui#readme"
 source = "https://github.com/Maciejonos/qbitwebui"
+status = "broken"
+status_note = "Its image can no longer be pulled from ghcr.io."
 upstream = "Dokploy/templates@6313a2e blueprints/qbitwebui"
 
 [variables]

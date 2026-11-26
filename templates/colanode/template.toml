@@ -12,6 +12,8 @@ logo = "logo.svg"
 website = "https://colanode.com"
 docs = "https://colanode.com/docs/"
 source = "https://github.com/colanode/colanode"
+status = "broken"
+status_note = "Its MinIO image is no longer published on Docker Hub."
 upstream = "Dokploy/templates@6313a2e blueprints/colanode"
 
 [variables]

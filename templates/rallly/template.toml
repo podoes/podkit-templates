@@ -12,6 +12,8 @@ logo = "logo.svg"
 website = "https://rallly.co/"
 docs = "https://support.rallly.co/self-hosting/introduction"
 source = "https://github.com/lukevella/rallly"
+status = "broken"
+status_note = "Its MinIO image is no longer published on Docker Hub."
 upstream = "Dokploy/templates@6313a2e blueprints/rallly"
 
 [variables]

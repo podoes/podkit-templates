@@ -12,6 +12,8 @@ logo = "logo.svg"
 website = "https://huly.io/"
 docs = "https://docs.huly.io/"
 source = "https://github.com/hcengineering/huly-selfhost"
+status = "broken"
+status_note = "Its MinIO image is no longer published on Docker Hub."
 upstream = "Dokploy/templates@6313a2e blueprints/huly"
 
 [variables]

@@ -16,6 +16,8 @@ logo = "logo.svg"
 website = "https://karakeep.app/"
 docs = "https://github.com/karakeep-app/karakeep/tree/main/docs"
 source = "https://github.com/karakeep-app/karakeep"
+status = "broken"
+status_note = "Its Chrome image can no longer be pulled."
 upstream = "Dokploy/templates@6313a2e blueprints/karakeep"
 
 [variables]
