@@ -11,6 +11,8 @@ logo = "logo.png"
 website = "https://www.bytebase.com"
 docs = "https://www.bytebase.com/docs"
 source = "https://github.com/bytebase/bytebase"
+status = "broken"
+status_note = "The image tag it names is no longer published."
 upstream = "Dokploy/templates@6313a2e blueprints/bytebase"
 
 [variables]

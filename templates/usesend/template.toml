@@ -13,6 +13,8 @@ logo = "logo.png"
 website = "https://usesend.com/"
 docs = "https://docs.usesend.com/introduction"
 source = "https://github.com/usesend/usesend"
+status = "broken"
+status_note = "Its MinIO image is no longer published on Docker Hub."
 upstream = "Dokploy/templates@6313a2e blueprints/usesend"
 
 [variables]

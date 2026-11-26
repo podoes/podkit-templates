@@ -13,6 +13,8 @@ logo = "logo.svg"
 website = "https://budibase.com/"
 docs = "https://docs.budibase.com/docs/"
 source = "https://github.com/Budibase/budibase"
+status = "broken"
+status_note = "Its MinIO image is no longer published on Docker Hub."
 upstream = "Dokploy/templates@6313a2e blueprints/budibase"
 
 [variables]

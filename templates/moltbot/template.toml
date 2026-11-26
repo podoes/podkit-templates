@@ -16,6 +16,8 @@ logo = "logo.svg"
 website = "https://molt.bot"
 docs = "https://docs.molt.bot"
 source = "https://github.com/moltbot/moltbot"
+status = "broken"
+status_note = "Its image can no longer be pulled from ghcr.io."
 upstream = "Dokploy/templates@6313a2e blueprints/moltbot"
 
 [variables]

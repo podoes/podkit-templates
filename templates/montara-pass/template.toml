@@ -12,6 +12,8 @@ logo = "logo.png"
 website = "https://montarapass.com"
 docs = "https://docs.montarapass.com"
 source = "https://github.com/montara-project/montara-pass"
+status = "broken"
+status_note = "Its image can no longer be pulled from ghcr.io."
 upstream = "Dokploy/templates@6313a2e blueprints/montara-pass"
 reveal = ["super_user_password"]
 
