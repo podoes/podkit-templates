@@ -9,13 +9,16 @@ podkit downloads `index.json` when an admin presses refresh, and a template's fi
 someone opens it. docs/catalog.md describes the format.
 """
 import argparse
+import gzip
 import hashlib
+import io
 import json
 import pathlib
 import re
 import shutil
 import subprocess
 import sys
+import tarfile
 import tomllib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -135,7 +138,21 @@ def main():
         shutil.copytree(ROOT / "templates" / e["id"], out / "templates" / e["id"])
     git = subprocess.run(["git", "rev-parse", "--verify", "HEAD"], cwd=ROOT, capture_output=True, text=True)
     commit = git.stdout.strip() if git.returncode == 0 else ""
-    index = {"format": FORMAT, "commit": commit, "templates": entries}
+    # Everything podkit needs in one download; it checks the hash before unpacking.
+    archive = out / "catalog.tar.gz"
+    with gzip.GzipFile(archive, "wb", mtime=0) as gz, tarfile.open(fileobj=gz, mode="w") as tar:
+        for e in entries:
+            for f in e["files"]:
+                info = tarfile.TarInfo(f"templates/{e['id']}/{f['name']}")
+                data = (ROOT / "templates" / e["id"] / f["name"]).read_bytes()
+                info.size, info.mode = len(data), 0o644
+                tar.addfile(info, io.BytesIO(data))
+    index = {
+        "format": FORMAT,
+        "commit": commit,
+        "archive": {"name": archive.name, "sha256": sha256(archive.read_bytes()), "size": archive.stat().st_size},
+        "templates": entries,
+    }
     (out / "index.json").write_text(json.dumps(index, separators=(",", ":")))
     print(f"wrote {out.relative_to(ROOT)}/ at {commit[:7] or 'no commit'}")
 

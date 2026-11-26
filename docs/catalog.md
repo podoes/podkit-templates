@@ -4,6 +4,7 @@
 
 ```
 index.json
+catalog.tar.gz                     every template, for podkit
 templates/<id>/template.toml, docker-compose.yml, logo.*
 index.html, app.js, style.css      the website
 ```
@@ -11,8 +12,16 @@ index.html, app.js, style.css      the website
 ## index.json
 
 ```json
-{ "format": 1, "commit": "<git commit of this repository>", "templates": [ … ] }
+{
+  "format": 1,
+  "commit": "<git commit of this repository>",
+  "archive": { "name": "catalog.tar.gz", "sha256": "…", "size": 0 },
+  "templates": [ … ]
+}
 ```
+
+`catalog.tar.gz` holds `templates/<id>/<file>` for every template. podkit downloads the
+index, then the archive, and unpacks the archive only when its SHA-256 is the one in the index.
 
 `format` is raised only for a change an older podkit cannot ignore. podkit refuses a format
 it does not know and keeps its last copy.
