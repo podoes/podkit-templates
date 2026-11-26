@@ -38,7 +38,8 @@ def parse(image):
 
 
 def request(url, token=None, method="HEAD"):
-    req = urllib.request.Request(url, method=method, headers={"Accept": ACCEPT})
+    # Some registries refuse urllib's own User-Agent.
+    req = urllib.request.Request(url, method=method, headers={"Accept": ACCEPT, "User-Agent": "podkit-templates"})
     if token:
         req.add_header("Authorization", f"Bearer {token}")
     return urllib.request.urlopen(req, timeout=20)
