@@ -61,6 +61,12 @@ select { width: auto; text-transform: capitalize; }
 .badge.unmaintained, .status.unmaintained { color: var(--warning); background: var(--warning-soft); }
 .status { padding: 0.6rem 0.8rem; border-radius: 8px; }
 .empty { color: var(--muted-foreground); padding: 2rem 0; }
+.presets { padding-bottom: 1.5rem; }
+.presets p { margin: 0.4rem 0 0; max-width: 60ch; }
+.section { margin-top: 0.5rem; }
+.card.preset { cursor: default; }
+.card.preset:hover { background: var(--card); }
+.card.preset .muted { -webkit-line-clamp: 3; }
 
 dialog { width: min(40rem, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); padding: 1.5rem; color: inherit; background: var(--popover); border: 1px solid var(--border); border-radius: 14px; }
 dialog::backdrop { background: var(--overlay); }

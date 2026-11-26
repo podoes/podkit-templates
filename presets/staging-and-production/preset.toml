@@ -1,0 +1,26 @@
+version = 1
+
+[projects.app]
+name = "App"
+
+[projects.app.environments.production]
+name = "Production"
+
+[projects.app.environments.production.databases.main]
+server = "${choose}"
+engine = "postgres"
+
+[projects.app.environments.production.databases.cache]
+server = "${choose}"
+engine = "redis"
+
+[projects.app.environments.staging]
+name = "Staging"
+
+[projects.app.environments.staging.databases.main]
+server = "${choose}"
+engine = "postgres"
+
+[projects.app.environments.staging.databases.cache]
+server = "${choose}"
+engine = "redis"

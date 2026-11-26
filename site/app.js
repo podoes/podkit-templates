@@ -101,6 +101,21 @@ fetch("index.json")
 		templates = index.templates;
 		$("count").textContent = `${templates.length} templates, free to use. Catalog ${index.commit.slice(0, 7)}.`;
 		for (const c of [...new Set(templates.map((t) => t.category))].sort()) $("category").append(el("option", { value: c, textContent: c }));
+		const presets = index.presets || [];
+		$("presets").hidden = presets.length === 0;
+		$("preset-list").replaceChildren(
+			...presets.map((p) =>
+				el("li", {},
+					el("div", { className: "card preset" },
+						el("span", { className: "card-text" },
+							el("strong", { textContent: p.name }),
+							el("span", { className: "muted", textContent: p.description }),
+							el("a", { href: `presets/${p.id}/preset.toml`, download: `${p.id}.toml`, textContent: "preset.toml" }),
+						),
+					),
+				),
+			),
+		);
 		render();
 		const wanted = templates.find((t) => t.id === location.hash.slice(1));
 		if (wanted) open(wanted);
