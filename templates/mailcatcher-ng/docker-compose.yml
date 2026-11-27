@@ -2,7 +2,7 @@ services:
   mailcatcher-ng:
     # Only the "latest" tag is published, so the image is pinned by digest
     # (v2.3.9 of the image, MailCatcher NG 1.6.8).
-    image: stpaquet/alpinemailcatcher:latest@sha256:499c0eabca5e82b23d030706ba9d5b8b27bba5a5f34a43154ee5e68b07cba52c
+    image: stpaquet/alpinemailcatcher:latest@sha256:0dbd32a2bdca060aed185ce6039054b5bf853fd11e78a3ecf80f54dda64e89ad
     restart: unless-stopped
     # Same as the image default CMD, plus --persistence so caught mail
     # survives container restarts (stored in the named volume below).
