@@ -111,6 +111,77 @@ def load(folder):
     }, []
 
 
+PRESET_ABOUT = ("name", "description", "tags", "maintainers")
+
+
+def servers_of(project):
+    """Every `server` a preset's project names, with where."""
+    for env, e in project.get("environments", {}).items():
+        for kind in ("apps", "databases", "stacks", "models", "cron"):
+            for name, obj in e.get(kind, {}).items():
+                if "server" in obj:
+                    yield f"environments.{env}.{kind}.{name}.server", obj["server"]
+    for network in project.get("networks", []):
+        yield f"networks.{network.get('name')}.server", network.get("server")
+
+
+def load_preset(folder):
+    """One preset as its index entry, or the list of what is wrong with it.
+
+    A preset is a podkit project file. podkit checks it in full when it reads the catalog;
+    this checks what the catalog asks on top: nothing in it may belong to one install.
+    """
+    about_file, preset_file = folder / "about.toml", folder / "preset.toml"
+    if not about_file.is_file() or not preset_file.is_file():
+        return None, ["needs about.toml and preset.toml"]
+    try:
+        about = tomllib.loads(about_file.read_text())
+        text = preset_file.read_text()
+        preset = tomllib.loads(text)
+    except tomllib.TOMLDecodeError as e:
+        return None, [str(e)]
+    problems = [f"about.toml: `{k}` is missing" for k in PRESET_ABOUT if k not in about]
+    if not re.fullmatch(r"[a-z0-9][a-z0-9-]*", folder.name):
+        problems.append("the folder is lowercase letters, digits and hyphens")
+    projects = preset.get("projects", {})
+    if preset.get("version") != 1 or len(projects) != 1:
+        problems.append("preset.toml is `version = 1` with exactly one project")
+        return None, problems
+    (project,) = projects.values()
+    for where, server in servers_of(project):
+        if server != "${choose}":
+            problems.append(f"{where} is {server!r}: a catalog preset says \"${{choose}}\"")
+    for env, e in project.get("environments", {}).items():
+        for name, app in e.get("apps", {}).items():
+            where = f"environments.{env}.apps.{name}"
+            if "${project}" not in app.get("slug", ""):
+                problems.append(f"{where}.slug needs \"${{project}}\" in it: a slug is unique on a server")
+            for key in ("deploy_key", "registry"):
+                if app.get(key, "${choose}") != "${choose}":
+                    problems.append(f"{where}.{key} names something of one team")
+            if app.get("domains"):
+                problems.append(f"{where}.domains: a hostname belongs to whoever applies the preset")
+        for name, stack in e.get("stacks", {}).items():
+            if stack.get("domains"):
+                problems.append(f"environments.{env}.stacks.{name}.domains: a hostname belongs to whoever applies the preset")
+    if "${secret:" in text and not about.get("secrets"):
+        problems.append("about.toml: `secrets` says, for each secret to type in, what it is for")
+    if problems:
+        return None, problems
+    return {
+        "id": folder.name,
+        "name": about["name"],
+        "description": about["description"],
+        "tags": about["tags"],
+        "maintainers": about["maintainers"],
+        "secrets": about.get("secrets", {}),
+        "sha256": sha256(text.encode()),
+        # A preset is one small file: it travels in the index, where a podkit that does not
+        # know presets leaves it alone.
+        "file": text,
+    }, []
+
+
 def main():
     args = argparse.ArgumentParser()
     args.add_argument("--check", action="store_true")
@@ -125,9 +196,17 @@ def main():
         bad += bool(problems)
         if entry:
             entries.append(entry)
+    presets = []
+    for folder in sorted(p for p in (ROOT / "presets").glob("*") if p.is_dir()):
+        entry, problems = load_preset(folder)
+        for p in problems:
+            print(f"presets/{folder.name}: {p}", file=sys.stderr)
+        bad += bool(problems)
+        if entry:
+            presets.append(entry)
     if bad:
-        sys.exit(f"{bad} template(s) with problems")
-    print(f"{len(entries)} templates are valid")
+        sys.exit(f"{bad} template(s) or preset(s) with problems")
+    print(f"{len(entries)} templates and {len(presets)} presets are valid")
     if args.check:
         return
 
@@ -136,6 +215,9 @@ def main():
     shutil.copytree(ROOT / "site", out)
     for e in entries:
         shutil.copytree(ROOT / "templates" / e["id"], out / "templates" / e["id"])
+    for e in presets:
+        (out / "presets" / e["id"]).mkdir(parents=True)
+        (out / "presets" / e["id"] / "preset.toml").write_text(e["file"])
     git = subprocess.run(["git", "rev-parse", "--verify", "HEAD"], cwd=ROOT, capture_output=True, text=True)
     commit = git.stdout.strip() if git.returncode == 0 else ""
     # Everything podkit needs in one download; it checks the hash before unpacking.
@@ -152,6 +234,7 @@ def main():
         "commit": commit,
         "archive": {"name": archive.name, "sha256": sha256(archive.read_bytes()), "size": archive.stat().st_size},
         "templates": entries,
+        "presets": presets,
     }
     (out / "index.json").write_text(json.dumps(index, separators=(",", ":")))
     print(f"wrote {out.relative_to(ROOT)}/ at {commit[:7] or 'no commit'}")

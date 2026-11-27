@@ -1,0 +1,4 @@
+name = "Staging and production"
+description = "A project with two environments, each with its own Postgres and Redis, ready for your application."
+tags = ["starter", "postgres", "redis", "environments"]
+maintainers = []

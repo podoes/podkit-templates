@@ -6,6 +6,9 @@ folder with a compose file, a `template.toml` and a logo.
 This repository is the only source of official templates. Its website is the catalog:
 browse it, then deploy a template to your own podkit.
 
+It also holds presets: whole projects (environments, databases, applications) that a team
+applies in one go and binds to its own servers.
+
 ## Add or change a template
 
 Open a pull request. [CONTRIBUTING.md](CONTRIBUTING.md) has the file format and the checks.
