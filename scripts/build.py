@@ -125,6 +125,38 @@ def servers_of(project):
         yield f"networks.{network.get('name')}.server", network.get("server")
 
 
+KINDS = (("apps", "application"), ("databases", "database"), ("stacks", "stack"), ("models", "model"), ("cron", "scheduled task"))
+
+
+def outline_of(project):
+    """What a preset makes, for the site to draw: its environments and what is in each."""
+    def detail(kind, obj):
+        if kind == "databases":
+            return " ".join(str(v) for v in (obj.get("engine"), obj.get("version")) if v)
+        if kind == "cron":
+            return obj.get("schedule", "")
+        # An application is an image or a repository, a model a repository; a stack is its compose file.
+        return obj.get("image") or obj.get("repo") or ("compose file" if kind == "stacks" else "")
+
+    return {
+        "environments": [
+            {
+                "name": e.get("name", slug),
+                "parts": [
+                    {"kind": label, "name": name, "detail": detail(kind, obj)}
+                    for kind, label in KINDS
+                    for name, obj in e.get(kind, {}).items()
+                ],
+            }
+            for slug, e in project.get("environments", {}).items()
+        ],
+        "networks": [
+            {"name": n.get("name", ""), "members": [m.get("name", "") for m in n.get("members", [])]}
+            for n in project.get("networks", [])
+        ],
+    }
+
+
 def load_preset(folder):
     """One preset as its index entry, or the list of what is wrong with it.
 
@@ -176,6 +208,7 @@ def load_preset(folder):
         "maintainers": about["maintainers"],
         "secrets": about.get("secrets", {}),
         "sha256": sha256(text.encode()),
+        "outline": outline_of(next(iter(projects.values()))),
         # A preset is one small file: it travels in the index, where a podkit that does not
         # know presets leaves it alone.
         "file": text,

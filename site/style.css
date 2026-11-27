@@ -64,9 +64,17 @@ select { width: auto; text-transform: capitalize; }
 .presets { padding-bottom: 1.5rem; }
 .presets p { margin: 0.4rem 0 0; max-width: 60ch; }
 .section { margin-top: 0.5rem; }
-.card.preset { cursor: default; }
+li.preset { grid-column: 1 / -1; }
+.card.preset { cursor: default; flex-direction: column; align-items: stretch; gap: 0.8rem; }
 .card.preset:hover { background: var(--card); }
 .card.preset .muted { -webkit-line-clamp: 3; }
+.outline { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0; padding: 0; list-style: none; }
+.outline > li { flex: 1 1 14rem; min-width: 0; padding: 0.7rem; border: 1px solid var(--border); border-radius: 10px; }
+.outline h3 { margin: 0 0 0.5rem; font-size: 0.85rem; }
+.outline ul { display: grid; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+.outline ul li { display: grid; padding: 0.4rem 0.6rem; background: var(--accent); border-radius: 8px; overflow-wrap: anywhere; }
+.outline small { color: var(--muted-foreground); }
+.outline .networks { flex-basis: 100%; border-style: dashed; }
 
 dialog { width: min(40rem, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); padding: 1.5rem; color: inherit; background: var(--popover); border: 1px solid var(--border); border-radius: 14px; }
 dialog::backdrop { background: var(--overlay); }

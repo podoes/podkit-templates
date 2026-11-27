@@ -11,6 +11,19 @@ const el = (tag, props = {}, ...children) => {
 	return node;
 };
 const link = (href, text) => el("a", { href, rel: "noopener", target: "_blank", textContent: text });
+// A preset drawn as what it makes: one box per environment, one row per part.
+const outline = (o) =>
+	el("ul", { className: "outline", ariaLabel: "What this preset makes" },
+		...((o && o.environments) || []).map((e) =>
+			el("li", {},
+				el("h3", { textContent: e.name }),
+				el("ul", {}, ...e.parts.map((p) => el("li", {}, el("span", { textContent: p.name }), el("small", { textContent: [p.kind, p.detail].filter(Boolean).join(" \u00b7 ") })))),
+			),
+		),
+		...((o && o.networks) || []).map((n) =>
+			el("li", { className: "networks" }, el("h3", { textContent: `Network ${n.name}` }), el("small", { textContent: `Joins ${n.members.join(", ")}` })),
+		),
+	);
 
 function matches(t, words, category, hideFlagged) {
 	if (category && t.category !== category) return false;
@@ -105,13 +118,14 @@ fetch("index.json")
 		$("presets").hidden = presets.length === 0;
 		$("preset-list").replaceChildren(
 			...presets.map((p) =>
-				el("li", {},
+				el("li", { className: "preset" },
 					el("div", { className: "card preset" },
 						el("span", { className: "card-text" },
 							el("strong", { textContent: p.name }),
 							el("span", { className: "muted", textContent: p.description }),
-							el("a", { href: `presets/${p.id}/preset.toml`, download: `${p.id}.toml`, textContent: "preset.toml" }),
 						),
+						outline(p.outline),
+						el("a", { href: `presets/${p.id}/preset.toml`, download: `${p.id}.toml`, textContent: "preset.toml" }),
 					),
 				),
 			),
