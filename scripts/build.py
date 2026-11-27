@@ -151,7 +151,8 @@ def outline_of(project):
             for slug, e in project.get("environments", {}).items()
         ],
         "networks": [
-            {"name": n.get("name", ""), "members": [m.get("name", "") for m in n.get("members", [])]}
+            # The same name can be in two environments: a member is told apart by its own.
+            {"name": n.get("name", ""), "members": [f"{m.get('name', '')} ({m.get('environment', '')})" for m in n.get("members", [])]}
             for n in project.get("networks", [])
         ],
     }
