@@ -1,6 +1,6 @@
 services:
   arangodb:
-    image: arangodb:3.12.4
+    image: arangodb:3.12.14
     restart: unless-stopped
     expose:
       - 8529
