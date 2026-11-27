@@ -19,7 +19,9 @@ scripts/build.py             # also writes dist/: the website and the catalog
 python3 -m http.server -d dist
 ```
 
-The scripts need Python 3.11 or later and nothing else.
+The scripts need Python 3.11 or later and nothing else. With [devenv](https://devenv.sh) the
+shell brings it, `serve` (builds and serves `dist/` at http://127.0.0.1:8767) and git hooks
+that run the same check before each commit.
 
 ## How podkit uses it
 
