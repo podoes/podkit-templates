@@ -25,6 +25,37 @@ const outline = (o) =>
 		),
 	);
 
+// The same preset as podkit's project canvas draws it. podkit placed everything (`server
+// preset-canvas`, run by the build); this only puts each piece where it says.
+const at = (node, r) => {
+	for (const [side, value] of [["left", r.x], ["top", r.y], ["width", r.w], ["height", r.h]]) if (value !== undefined) node.style[side] = `${value}px`;
+	return node;
+};
+const svg = (tag, attrs, ...children) => {
+	const node = document.createElementNS("http://www.w3.org/2000/svg", tag);
+	for (const [name, value] of Object.entries(attrs)) node.setAttribute(name, value);
+	node.append(...children);
+	return node;
+};
+const canvas = (c) =>
+	el("div", { className: "cv", tabIndex: 0, ariaLabel: "What this preset makes" },
+		at(
+			el("div", { className: "cv-world" },
+				...c.environments.map((e) => at(el("section", { className: "cv-env" }, el("h3", { textContent: e.name })), e.rect)),
+				...c.networks.map((n) => at(el("div", { className: "cv-net" }, el("small", { textContent: n.name })), n.rect)),
+				svg("svg", { width: c.width, height: c.height, "aria-hidden": "true" },
+					svg("defs", {}, svg("marker", { id: "cv-arrow", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto" }, svg("path", { d: "M1 1L9 5L1 9" }))),
+					...c.links.map((l) => svg("path", { d: l.d, class: l.kind, "marker-end": "url(#cv-arrow)" })),
+				),
+				...c.nodes.map((n) =>
+					at(el("div", { className: "cv-node" }, el("strong", { textContent: n.name }), el("small", { textContent: [n.kind, n.detail].filter(Boolean).join(" \u00b7 ") })), { x: n.x, y: n.y, w: c.node.w, h: c.node.h }),
+				),
+				...c.links.map((l) => at(el("span", { className: "cv-label", textContent: l.label }), l)),
+			),
+			{ w: c.width, h: c.height },
+		),
+	);
+
 function matches(t, words, category, hideFlagged) {
 	if (category && t.category !== category) return false;
 	if (hideFlagged && t.status !== "ok") return false;
@@ -124,7 +155,7 @@ fetch("index.json")
 							el("strong", { textContent: p.name }),
 							el("span", { className: "muted", textContent: p.description }),
 						),
-						outline(p.outline),
+						p.canvas ? canvas(p.canvas) : outline(p.outline),
 						el("a", { href: `presets/${p.id}/preset.toml`, download: `${p.id}.toml`, textContent: "preset.toml" }),
 					),
 				),

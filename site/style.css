@@ -75,6 +75,23 @@ li.preset { grid-column: 1 / -1; }
 .outline ul li { display: grid; padding: 0.4rem 0.6rem; background: var(--accent); border-radius: 8px; overflow-wrap: anywhere; }
 .outline small { color: var(--muted-foreground); }
 .outline .networks { flex-basis: 100%; border-style: dashed; }
+/* podkit's project canvas, at rest: frames for environments and networks, a tile per part. */
+.cv { overflow: auto; padding: 1rem; background: var(--background); border: 1px solid var(--border); border-radius: 10px; }
+.cv:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.cv-world { position: relative; }
+.cv-world > * { position: absolute; margin: 0; }
+.cv-env { border: 1px solid var(--border); border-radius: 12px; }
+.cv-env h3 { margin: 0; padding: 0.7rem 1rem; font-size: 0.95rem; }
+.cv-net { background: var(--accent); border: 1px dashed var(--input); border-radius: 8px; }
+.cv-net small { padding: 0.3rem 0.6rem; font: 0.7rem "JetBrains Mono", ui-monospace, monospace; color: var(--muted-foreground); }
+.cv-node { display: grid; align-content: center; gap: 0.2rem; padding: 0.6rem 0.9rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px; }
+.cv-node > * { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.cv-node small { font: 0.72rem "JetBrains Mono", ui-monospace, monospace; color: var(--muted-foreground); }
+.cv-world svg { left: 0; top: 0; overflow: visible; pointer-events: none; }
+.cv-world svg path { fill: none; stroke: var(--input); stroke-width: 1.5; }
+.cv-world svg path.gateway { stroke-width: 2.25; stroke-dasharray: 1 5; stroke-linecap: round; }
+.cv-world svg path.network { stroke-dasharray: 7 5; }
+.cv-label { padding: 0 0.4rem; font-size: 0.7rem; color: var(--muted-foreground); background: var(--card); border: 1px solid var(--border); border-radius: 999px; translate: -50% -50%; }
 
 dialog { width: min(40rem, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); padding: 1.5rem; color: inherit; background: var(--popover); border: 1px solid var(--border); border-radius: 14px; }
 dialog::backdrop { background: var(--overlay); }

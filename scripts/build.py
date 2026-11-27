@@ -13,6 +13,7 @@ import gzip
 import hashlib
 import io
 import json
+import os
 import pathlib
 import re
 import shutil
@@ -216,6 +217,23 @@ def load_preset(folder):
     }, []
 
 
+def canvases():
+    """Each preset as podkit's project canvas draws it, by id; nothing when podkit is not at hand.
+
+    `PODKIT_CANVAS` is the command that prints it, run in this folder: `server preset-canvas .`,
+    or the same from podkit's image. Without it, or when it fails, the site draws the outline.
+    """
+    command = os.environ.get("PODKIT_CANVAS")
+    if not command:
+        return {}
+    try:
+        done = subprocess.run(command, shell=True, cwd=ROOT, capture_output=True, text=True, timeout=300, check=True)
+        return json.loads(done.stdout)
+    except (subprocess.SubprocessError, json.JSONDecodeError, OSError) as e:
+        print(f"no canvas, the site draws outlines: {e}", file=sys.stderr)
+        return {}
+
+
 def main():
     args = argparse.ArgumentParser()
     args.add_argument("--check", action="store_true")
@@ -243,6 +261,10 @@ def main():
     print(f"{len(entries)} templates and {len(presets)} presets are valid")
     if args.check:
         return
+    drawn = canvases()
+    for e in presets:
+        if e["id"] in drawn:
+            e["canvas"] = drawn[e["id"]]
 
     out = ROOT / args.out
     shutil.rmtree(out, ignore_errors=True)
