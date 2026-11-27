@@ -61,7 +61,7 @@ services:
       POSTGRES_PWD: ${PEERDB_CATALOG_PASSWORD}
       POSTGRES_SEEDS: catalog
       DYNAMIC_CONFIG_FILE_PATH: config/dynamicconfig/production-sql.yaml
-    image: temporalio/auto-setup:1.29@sha256:5b3502a3b685f9eff1b925af90c57c9e3dbeccbef367cc28a2a9712c63379312
+    image: temporalio/auto-setup:1.29@sha256:f14912b699cf73015ad5c4fc18d522d4b014db90e794039214dfb7c022c2644f
     expose:
       - 7233
     volumes:
