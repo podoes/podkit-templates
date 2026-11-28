@@ -1,6 +1,6 @@
 services:
   lfsx:
-    image: ghcr.io/ferrlabs/lfsx:1.14.1
+    image: ghcr.io/ferrlabs/lfsx:1.26.60
     restart: unless-stopped
     environment:
       - LFSX_AUTH=github
