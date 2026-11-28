@@ -41,7 +41,7 @@ services:
       start_period: 10s
 
   worker:
-    image: budibase/worker:3.23.47
+    image: budibase/worker:v3.51.0
     restart: unless-stopped
     environment:
       SELF_HOSTED: 1
