@@ -1,6 +1,6 @@
 services:
   openlmnp:
-    image: manganate06/openlmnp:1.6.6
+    image: manganate06/openlmnp:1.6.11
     restart: unless-stopped
     environment:
       # APP_URL must carry the scheme: password-reset links and e-mails are built
