@@ -1,6 +1,6 @@
 services:
   wiki:
-    image: ghcr.io/requarks/wiki:2.5
+    image: ghcr.io/requarks/wiki:3.6
     restart: unless-stopped
     environment:
       - DB_TYPE
