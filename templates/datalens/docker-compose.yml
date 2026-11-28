@@ -52,7 +52,7 @@ services:
       - ${VOLUME_US:-./metadata}:/var/lib/postgresql/data
 
   us:
-    image: ghcr.io/datalens-tech/datalens-us:0.310.0
+    image: ghcr.io/datalens-tech/datalens-us:0.442.0
     restart: always
     depends_on:
       - pg-us
