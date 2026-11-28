@@ -25,7 +25,7 @@ services:
 
 
   unifi-db:
-    image: mongo:4.4
+    image: mongo:9.0
     volumes:
       - ../files/db/data:/data/db
       - ../files/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh:ro

@@ -104,7 +104,7 @@ services:
       start_period: 30s
 
   mongo:
-    image: mongo:7
+    image: mongo:9
     restart: unless-stopped
     expose:
       - '27017'
