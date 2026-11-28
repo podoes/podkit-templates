@@ -5,7 +5,7 @@ services:
       - NEXTAUTH_URL
       - DATABASE_URL=postgresql://linkwarden:${POSTGRES_PASSWORD}@postgres:5432/linkwarden
     restart: unless-stopped
-    image: ghcr.io/linkwarden/linkwarden:v2.9.3
+    image: ghcr.io/linkwarden/linkwarden:v2.17.0
     expose:
       - 3000
     volumes:
