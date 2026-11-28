@@ -1,6 +1,6 @@
 services:
   kotonoba:
-    image: ghcr.io/trixtylab/kotonoba:1.0.19
+    image: ghcr.io/trixtylab/kotonoba:v1.2.2
     restart: unless-stopped
     environment:
       NODE_ENV: production
