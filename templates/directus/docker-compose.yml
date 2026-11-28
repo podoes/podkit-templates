@@ -1,6 +1,6 @@
 services:
   directus:
-    image: directus/directus:12.1.1
+    image: directus/directus:12.7.0
     expose:
       - 8055
     volumes:
