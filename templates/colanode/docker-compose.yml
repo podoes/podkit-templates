@@ -10,7 +10,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   valkey:
-    image: valkey/valkey:8.1
+    image: valkey/valkey:9.2
     restart: always
     command: ["valkey-server", "--requirepass", "${VALKEY_PASSWORD}"]
     volumes:

@@ -1,6 +1,6 @@
 services:
   valkey:
-    image: valkey/valkey:8.1.4
+    image: valkey/valkey:9.2.1
     restart: unless-stopped
     volumes:
       - ../files/valkey.conf:/etc/valkey/valkey.conf
