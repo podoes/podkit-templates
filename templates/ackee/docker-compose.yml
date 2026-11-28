@@ -1,6 +1,6 @@
 services:
   ackee:
-    image: electerious/ackee:3.4.2
+    image: electerious/ackee:3.7.1
     expose:
       - "3000"
     environment:
