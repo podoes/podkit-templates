@@ -1,6 +1,6 @@
 services:
   windshift:
-    image: ghcr.io/windshiftapp/windshift:v0.9.3
+    image: ghcr.io/windshiftapp/windshift:0.9.6
     restart: unless-stopped
     environment:
       - BASE_URL=https://${DOMAIN}
