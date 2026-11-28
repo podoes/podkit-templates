@@ -1,6 +1,6 @@
 services:
   codex:
-    image: ghcr.io/codex-team/codex.docs:v2.2
+    image: ghcr.io/codex-team/codex.docs:v2.3
     expose:
       - "3000"
     environment:
