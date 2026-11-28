@@ -1,6 +1,6 @@
 services:
   orbit:
-    image: ghcr.io/coollabsio/orbit:0.3.0
+    image: ghcr.io/coollabsio/orbit:0.4.1
     restart: unless-stopped
     read_only: true
     cap_drop: [ALL]
