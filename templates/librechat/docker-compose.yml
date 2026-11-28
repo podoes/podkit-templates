@@ -58,7 +58,7 @@ services:
     command: mongod --noauth
 
   meilisearch:
-    image: getmeili/meilisearch:v1.12.3
+    image: getmeili/meilisearch:v1.58.0
     restart: always
     environment:
       - MEILI_HOST=http://meilisearch:7700
