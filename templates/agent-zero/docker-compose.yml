@@ -1,6 +1,6 @@
 services:
   agent-zero:
-    image: agent0ai/agent-zero:v1.9
+    image: agent0ai/agent-zero:v2.16
     restart: unless-stopped
     expose:
       - "80"
