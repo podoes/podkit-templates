@@ -1,6 +1,6 @@
 services:
   reelsaw:
-    image: ghcr.io/osbytes/reelsaw:0.18.2
+    image: ghcr.io/osbytes/reelsaw:0.55.0
     restart: always
     # a deploy waits for running renders instead of killing them (SHUTDOWN_GRACE_SECONDS=300)
     stop_grace_period: 330s
