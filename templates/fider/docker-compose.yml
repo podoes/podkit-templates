@@ -10,7 +10,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
 
   fider:
-    image: getfider/fider:0.21.1
+    image: getfider/fider:v0.41.0
     restart: unless-stopped
     depends_on:
       - db
