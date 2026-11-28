@@ -1,6 +1,6 @@
 services:
   certmate:
-    image: fabriziosalmi/certmate:2.21.3
+    image: fabriziosalmi/certmate:v2.60.0
     environment:
       - FLASK_ENV=production
       - SECRET_KEY=${SECRET_KEY} # 🔐 Flask session secret
