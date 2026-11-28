@@ -73,7 +73,7 @@ services:
       start_period: 10s
 
   postiz-redis:
-    image: redis:7.2
+    image: redis:7.4
     restart: always
 
     healthcheck:

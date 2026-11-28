@@ -22,7 +22,7 @@ services:
       - SMTP_PASSWORD=${SMTP_PASSWORD}
 
   redis:
-    image: redis:7.4.1
+    image: redis:7.4.12
     restart: always
     volumes:
       - redis_infisical_data:/data
