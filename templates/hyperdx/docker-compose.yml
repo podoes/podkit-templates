@@ -88,7 +88,7 @@ services:
       retries: 5
       start_period: 60s
   otel-collector:
-    image: clickhouse/clickstack-otel-collector:2.38.0
+    image: clickhouse/clickstack-otel-collector:2.47.0
     restart: unless-stopped
     depends_on:
       clickhouse:
