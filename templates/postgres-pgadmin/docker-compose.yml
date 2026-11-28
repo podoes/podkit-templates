@@ -18,7 +18,7 @@ services:
       - "5432"
 
   pgadmin:
-    image: dpage/pgadmin4:9.17
+    image: dpage/pgadmin4:9.19
     restart: unless-stopped
     # pgpass must be 0600 and readable by the pgadmin user (uid 5050), so copy the
     # mounted file into the data volume before starting pgAdmin.
