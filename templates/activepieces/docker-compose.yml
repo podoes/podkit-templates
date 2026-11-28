@@ -1,6 +1,6 @@
 services:
   activepieces:
-    image: activepieces/activepieces:0.91.2
+    image: activepieces/activepieces:0.94.0
     restart: unless-stopped
 
     depends_on:
