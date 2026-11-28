@@ -56,7 +56,7 @@ services:
       start_period: 30s
 
   web:
-    image: ghcr.io/sarrazola/openlivery-web:v0.4.0
+    image: ghcr.io/sarrazola/openlivery-web:v0.5.0
     platform: linux/amd64
     restart: unless-stopped
     environment:
