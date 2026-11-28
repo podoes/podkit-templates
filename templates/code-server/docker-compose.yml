@@ -1,6 +1,6 @@
 services:
   code-server:
-    image: codercom/code-server:4.121.0
+    image: codercom/code-server:4.146.0
     restart: unless-stopped
     expose:
       - 8080
