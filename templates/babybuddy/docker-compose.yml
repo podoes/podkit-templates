@@ -1,6 +1,6 @@
 services:
   babybuddy:
-    image: linuxserver/babybuddy:2.7.0
+    image: linuxserver/babybuddy:2.11.0
     restart: unless-stopped
     expose:
       - 8000
