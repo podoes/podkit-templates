@@ -1,6 +1,6 @@
 services:
   rocketchat:
-    image: registry.rocket.chat/rocketchat/rocket.chat:6.9.2
+    image: registry.rocket.chat/rocketchat/rocket.chat:6.13.1
     restart: always
     environment:
       MONGO_URL: "mongodb://mongodb:27017/rocketchat?replicaSet=rs0"
