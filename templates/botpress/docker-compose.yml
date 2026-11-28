@@ -1,6 +1,6 @@
 services:
   botpress:
-    image: botpress/server:12.31.9
+    image: botpress/server:12.31.10
     restart: unless-stopped
     expose:
       - 81
