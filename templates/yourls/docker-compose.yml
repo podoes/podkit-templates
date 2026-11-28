@@ -1,6 +1,6 @@
 services:
   yourls-app:
-    image: yourls:1.9.2
+    image: yourls:1.10.6
 
     environment:
       YOURLS_SITE: https://${YOURLS_HOST}
