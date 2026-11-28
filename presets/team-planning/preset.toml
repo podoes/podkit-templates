@@ -158,7 +158,7 @@ volumes:
 
 [projects.planning.environments.production.stacks.kimai.env]
 KI_ADMINMAIL = "admin@kimai.local"
-KI_ADMINPASS = "${generate:kimai-admin-password}"
+KI_ADMINPASS = "${secret:kimai-admin-password}"
 KI_APP_SECRET = "${generate:kimai-app-secret}"
 KI_HOST = "${secret:kimai-hostname}"
 KI_MYSQL_PASSWORD = "${generate:kimai-mysql-password}"

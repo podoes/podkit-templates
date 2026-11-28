@@ -78,7 +78,7 @@ volumes:
 '''
 
 [projects.dev.environments.production.stacks.code-server.env]
-PASSWORD = "${generate:code-server-password}"
+PASSWORD = "${secret:code-server-password}"
 TZ = "UTC"
 
 [projects.dev.environments.production.stacks.it-tools]

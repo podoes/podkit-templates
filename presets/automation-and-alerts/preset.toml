@@ -64,7 +64,7 @@ volumes:
 
 [projects.automation.environments.production.stacks.n8n-with-postgres.env]
 GENERIC_TIMEZONE = "Europe/Berlin"
-N8N_ENCRYPTION_KEY = "${generate:n8n-with-postgres-n8n-encryption-key}"
+N8N_ENCRYPTION_KEY = "${generate:n8n-with-postgres-n8n-encryption-key-1}${generate:n8n-with-postgres-n8n-encryption-key-2}"
 N8N_HOST = "${secret:n8n-with-postgres-hostname}"
 N8N_PORT = "5678"
 POSTGRES_DB = "n8n"

@@ -104,5 +104,5 @@ volumes:
 '''
 
 [projects.household.environments.production.stacks.homebox.env]
-HBOX_AUTH_API_KEY_PEPPER = "${generate:homebox-api-key-pepper}"
+HBOX_AUTH_API_KEY_PEPPER = "${generate:homebox-api-key-pepper-1}${generate:homebox-api-key-pepper-2}"
 TZ = "Etc/UTC"

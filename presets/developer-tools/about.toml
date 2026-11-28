@@ -1,7 +1,8 @@
 name = "Developer tools"
-description = "A developer's own corner: Forgejo hosts the code, code-server is an editor in the browser for the machine you are not sitting at, and IT-Tools has the converters and generators you would otherwise search for. After applying, route a hostname to each on its page. code-server asks for a password that podkit makes up: read it as PASSWORD in the stack's variables."
+description = "A developer's own corner: Forgejo hosts the code, code-server is an editor in the browser for the machine you are not sitting at, and IT-Tools has the converters and generators you would otherwise search for. After applying, route a hostname to each on its page."
 tags = ["team", "git", "editor", "developer"]
 maintainers = []
 
 [secrets]
+code-server-password = "The password code-server asks for when you open it."
 forgejo-hostname = "The hostname you will route to Forgejo, such as forgejo.example.com, without https://."
