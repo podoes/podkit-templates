@@ -1,6 +1,6 @@
 services:
   influxdb:
-    image: influxdb:2.7.10
+    image: influxdb:2.10.1
     restart: unless-stopped
     volumes:
       - influxdb2-data:/var/lib/influxdb2
