@@ -85,7 +85,7 @@ services:
       - postiz-redis-data:/data
 
   temporal-elasticsearch:
-    image: elasticsearch:7.17.27
+    image: elasticsearch:7.17.28
     restart: always
     environment:
       - cluster.routing.allocation.disk.threshold_enabled=true
