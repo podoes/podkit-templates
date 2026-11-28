@@ -1,6 +1,6 @@
 services:
   databasement:
-    image: davidcrty/databasement:1.8.4
+    image: davidcrty/databasement:1.10.12
     restart: unless-stopped
     expose:
       - 2226
