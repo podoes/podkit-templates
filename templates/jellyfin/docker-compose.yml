@@ -1,6 +1,6 @@
 services:
   jellyfin:
-    image: jellyfin/jellyfin:10
+    image: jellyfin/jellyfin:12
     volumes:
       - config:/config
       - cache:/cache
