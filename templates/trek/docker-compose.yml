@@ -1,6 +1,6 @@
 services:
   trek:
-    image: mauriceboe/trek:3.3.0
+    image: mauriceboe/trek:5.2.1
     restart: unless-stopped
     environment:
       - NODE_ENV=production
