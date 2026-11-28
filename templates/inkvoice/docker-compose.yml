@@ -1,6 +1,6 @@
 services:
   inkvoice:
-    image: ghcr.io/pigontech/inkvoice:0.3.0
+    image: ghcr.io/pigontech/inkvoice:0.3.8
     restart: unless-stopped
     environment:
       - ADMIN_USER=${ADMIN_USER}
