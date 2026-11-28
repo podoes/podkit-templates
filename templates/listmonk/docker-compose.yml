@@ -18,7 +18,7 @@ services:
 
   app:
     restart: unless-stopped
-    image: listmonk/listmonk:v5.0.0
+    image: listmonk/listmonk:v6.2.0
     environment:
       - LISTMONK_app__address=0.0.0.0:9000
       - LISTMONK_db__user=listmonk
