@@ -1,7 +1,7 @@
 services:
 
   apps:
-    image: budibase/apps:3.23.47
+    image: budibase/apps:v3.51.0
     restart: unless-stopped
     environment:
       SELF_HOSTED: 1
