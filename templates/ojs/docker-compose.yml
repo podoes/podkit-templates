@@ -1,6 +1,6 @@
 services:
   db:
-    image: mariadb:11.4
+    image: mariadb:11.8
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       MYSQL_DATABASE: "${OJS_DB_NAME}"

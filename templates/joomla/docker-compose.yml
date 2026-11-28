@@ -21,7 +21,7 @@ services:
       - joomla-data:/var/www/html
 
   joomla-db:
-    image: mariadb:11.4
+    image: mariadb:11.8
     restart: unless-stopped
     environment:
       MARIADB_DATABASE: ${JOOMLA_DB_NAME}
