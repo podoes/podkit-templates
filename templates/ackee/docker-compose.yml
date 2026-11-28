@@ -9,7 +9,7 @@ services:
       - ACKEE_MONGODB=${ACKEE_MONGODB}
   
   mongo:
-    image: mongo:4
+    image: mongo:9
     environment:
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
       - MONGO_INITDB_ROOT_USERNAME=mongo

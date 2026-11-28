@@ -16,7 +16,7 @@ services:
       - mongo
 
   mongo:
-    image: mongo:4
+    image: mongo:9
     environment:
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}

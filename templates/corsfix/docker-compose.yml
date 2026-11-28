@@ -41,7 +41,7 @@ services:
         condition: service_healthy
 
   mongodb:
-    image: mongo:8.0.17
+    image: mongo:9.0.8
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: corsfix
