@@ -21,7 +21,7 @@ services:
       - PATH=/home/node/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
   redis:
-    image: redis:8.6.2-alpine
+    image: redis:8.12.0-alpine
     restart: unless-stopped
     volumes:
       - redis-prod-data:/data

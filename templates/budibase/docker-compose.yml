@@ -152,7 +152,7 @@ services:
       - 'couchdb3_data:/opt/couchdb/data'
 
   redis:
-    image: redis:8.4-alpine
+    image: redis:8.12-alpine
     restart: unless-stopped
     command: 'redis-server --requirepass "${BB_REDIS_PASSWORD}"'
     volumes:

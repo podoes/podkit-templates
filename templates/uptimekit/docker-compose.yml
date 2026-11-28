@@ -44,7 +44,7 @@ services:
     restart: always
 
   redis:
-    image: redis:8.0-alpine
+    image: redis:8.12-alpine
     volumes:
       - redis_data:/data
     restart: always
