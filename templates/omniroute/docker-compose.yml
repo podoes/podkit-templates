@@ -1,6 +1,6 @@
 services:
   omniroute:
-    image: diegosouzapw/omniroute:3.8.17
+    image: diegosouzapw/omniroute:3.8.54
     restart: unless-stopped
 
     expose:
