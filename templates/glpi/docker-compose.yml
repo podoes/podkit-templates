@@ -7,7 +7,7 @@ services:
 
 
   glpi-web:
-    image: elestio/glpi:10.0.16
+    image: elestio/glpi:10.0.20
     restart: always
     volumes:
       - /etc/timezone:/etc/timezone:ro
