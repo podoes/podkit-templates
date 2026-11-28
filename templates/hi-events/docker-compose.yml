@@ -28,7 +28,7 @@ services:
       - postgres
 
   postgres:
-    image: elestio/postgres:16
+    image: elestio/postgres:18
     restart: always
 
     environment:
