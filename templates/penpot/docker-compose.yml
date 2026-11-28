@@ -138,7 +138,7 @@ services:
       PENPOT_SMTP_SSL: false
 
   penpot-exporter:
-    image: "penpotapp/exporter:2.6.1"
+    image: "penpotapp/exporter:2.19.5"
     restart: always
 
 
