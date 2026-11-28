@@ -1,6 +1,6 @@
 services:
   waxum:
-    image: fdciabdul/waxum:0.13.5
+    image: fdciabdul/waxum:0.16.3
     restart: unless-stopped
     expose:
       - 3451
