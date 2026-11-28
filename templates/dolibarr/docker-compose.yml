@@ -1,6 +1,6 @@
 services:
   dolibarr:
-    image: dolibarr/dolibarr:21.0.0
+    image: dolibarr/dolibarr:24.0.4
     restart: always
     environment:
       DOLI_DB_HOST: db
