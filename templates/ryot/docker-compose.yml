@@ -1,6 +1,6 @@
 services:
   ryot-app:
-    image: ignisda/ryot:v7.10
+    image: ignisda/ryot:v7.16
 
     environment:
       - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@ryot-db:5432/postgres
