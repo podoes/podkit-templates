@@ -1,0 +1,17 @@
+version = 1
+
+[projects.data]
+name = "Data"
+
+[projects.data.environments.production]
+name = "Production"
+
+[projects.data.environments.production.databases.main]
+server = "${choose}"
+engine = "postgres"
+
+[projects.data.environments.production.apps.adminer]
+server = "${choose}"
+slug = "${project}-adminer"
+image = "docker.io/library/adminer:4.8.1"
+port = 8080

@@ -1,0 +1,199 @@
+version = 1
+
+[projects.team]
+name = "Small team workspace"
+
+[projects.team.environments.production]
+name = "Production"
+
+[projects.team.environments.production.stacks.forgejo]
+server = "${choose}"
+source = "template:forgejo@16"
+compose = '''
+services:
+  forgejo:
+    image: codeberg.org/forgejo/forgejo:16
+    depends_on:
+      - db
+    environment:
+      - USER_UID=${USER_UID}
+      - USER_GID=${USER_GID}
+      - FORGEJO__database__DB_TYPE=postgres
+      - FORGEJO__database__HOST=db:5432
+      - FORGEJO__database__NAME=forgejo
+      - FORGEJO__database__USER=forgejo
+      - FORGEJO__database__PASSWD=forgejo
+      - FORGEJO__server__DOMAIN=${FORGEJO_DOMAIN}
+      - FORGEJO__server__SSH_DOMAIN=${FORGEJO_SSH_DOMAIN}
+      - FORGEJO__server__ROOT_URL=https://${FORGEJO_DOMAIN}/
+    restart: always
+    expose:
+      - 3000
+      - 22
+    volumes:
+      - forgejo_server:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+  db:
+    image: postgres:17
+    restart: always
+    environment:
+      - POSTGRES_USER=forgejo
+      - POSTGRES_PASSWORD=forgejo
+      - POSTGRES_DB=forgejo
+    volumes:
+      - forgejo_db:/var/lib/postgresql/data
+volumes:
+  forgejo_db:
+    driver: local
+  forgejo_server:
+    driver: local
+'''
+
+[projects.team.environments.production.stacks.forgejo.env]
+FORGEJO_DOMAIN = "${secret:forgejo-hostname}"
+FORGEJO_SSH_DOMAIN = "${secret:forgejo-hostname}"
+USER_GID = "1000"
+USER_UID = "1000"
+
+[projects.team.environments.production.stacks.mattermost]
+server = "${choose}"
+source = "template:mattermost@10.6.1"
+compose = '''
+services:
+  postgres:
+    image: postgres:17
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 100
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql
+    volumes:
+      - mattermostDbData:/var/lib/postgresql/data
+    environment:
+      - TZ
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+
+  mattermost:
+    depends_on:
+      - postgres
+    image: mattermost/mattermost-team-edition:10.6.1
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 200
+    read_only: false
+    tmpfs:
+      - /tmp
+    volumes:
+      - mattermostconf:/mattermost/config:rw
+      - mattermostdata:/mattermost/data:rw
+      - mattermostlogs:/mattermost/logs:rw
+      - mattermostplugsin:/mattermost/plugins:rw
+      - mattermostclientplugins:/mattermost/client/plugins:rw
+      - mattermostBleveIndexes:/mattermost/bleve-indexes:rw
+      
+    environment:
+      - DOMAIN
+      - TZ
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - MM_SQLSETTINGS_DRIVERNAME
+      - MM_SQLSETTINGS_DATASOURCE
+      - MM_BLEVESETTINGS_INDEXDIR
+      - MM_SERVICESETTINGS_SITEURL
+      - APP_PORT
+
+
+volumes:
+  mattermostDbData:
+    driver: local
+  mattermostconf:
+    driver: local
+  mattermostdata:
+    driver: local
+  mattermostlogs:
+    driver: local
+  mattermostplugsin:
+    driver: local
+  mattermostclientplugins:
+    driver: local
+  mattermostBleveIndexes:
+    driver: local
+'''
+
+[projects.team.environments.production.stacks.mattermost.env]
+APP_PORT = "8065"
+Domain = "${secret:mattermost-hostname}"
+MM_SQLSETTINGS_DATASOURCE = "postgres://mmuser:${generate:mattermost-postgres-password}@postgres:5432/mattermost?sslmode=disable&connect_timeout=10"
+MM_SQLSETTINGS_DRIVERNAME = "postgres"
+POSTGRES_DB = "mattermost"
+POSTGRES_PASSWORD = "${generate:mattermost-postgres-password}"
+POSTGRES_USER = "mmuser"
+TZ = "UTC"
+
+[projects.team.environments.production.stacks.wikijs]
+server = "${choose}"
+source = "template:wikijs@2.5"
+compose = '''
+services:
+  wiki:
+    image: ghcr.io/requarks/wiki:2.5
+    restart: unless-stopped
+    environment:
+      - DB_TYPE
+      - DB_HOST
+      - DB_PORT
+      - DB_USER
+      - DB_PASS
+      - DB_NAME
+    depends_on:
+      - db
+    labels:
+      - traefik.enable=true
+      - traefik.constraint-label-stack=wikijs
+  db:
+    image: postgres:14
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    volumes:
+      - wiki-db-data:/var/lib/postgresql/data
+volumes:
+  wiki-db-data:
+'''
+
+[projects.team.environments.production.stacks.wikijs.env]
+DB_HOST = "db"
+DB_NAME = "wiki"
+DB_PASS = "wikijsrocks"
+DB_PORT = "5432"
+DB_TYPE = "postgres"
+DB_USER = "wikijs"
+POSTGRES_DB = "wiki"
+POSTGRES_PASSWORD = "wikijsrocks"
+POSTGRES_USER = "wikijs"
+
+[projects.team.environments.production.apps.vaultwarden]
+server = "${choose}"
+slug = "${project}-vaultwarden"
+image = "docker.io/vaultwarden/server:1.37.5"
+port = 80
+volumes = ["/data"]
+
+[projects.team.environments.production.apps.vaultwarden.env]
+SIGNUPS_ALLOWED = "true"
+
+[projects.team.environments.production.apps.excalidraw]
+server = "${choose}"
+slug = "${project}-excalidraw"
+image = "docker.io/excalidraw/excalidraw:latest"
+port = 80

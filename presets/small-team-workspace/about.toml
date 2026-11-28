@@ -1,0 +1,8 @@
+name = "Small team workspace"
+description = "What a small team works in, on its own servers: Forgejo for code, Mattermost for chat, Wiki.js for what the team knows, Vaultwarden for shared passwords and Excalidraw for a whiteboard. Each of the three bigger ones brings its own database. After applying, route a hostname to Forgejo, Mattermost and Wiki.js on their pages; Vaultwarden and Excalidraw answer at their own address at once."
+tags = ["team", "git", "chat", "wiki", "passwords"]
+maintainers = []
+
+[secrets]
+forgejo-hostname = "The hostname you will route to Forgejo, such as git.example.com, without https://. Clone addresses are made from it."
+mattermost-hostname = "The hostname you will route to Mattermost, such as chat.example.com, without https://."

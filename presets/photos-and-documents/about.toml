@@ -1,0 +1,7 @@
+name = "Photos and documents"
+description = "A home for a family's photos and paperwork. Immich backs up the phones and finds faces and places; Paperless-ngx reads scanned letters and bills and makes them searchable. Each brings its own database and keeps its files in its own volumes. After applying, route a hostname to each on its page."
+tags = ["homelab", "photos", "documents", "immich", "paperless"]
+maintainers = []
+
+[secrets]
+paperless-ngx-hostname = "The hostname you will route to Paperless-ngx, such as paper.example.com, without http://."

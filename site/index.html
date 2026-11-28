@@ -6,85 +6,150 @@
 <title>podkit templates</title>
 <meta name="description" content="One-click services for podkit: browse the catalog and deploy a template to your own server.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<!-- The theme a person picked, before the first paint. Without one the page follows the system. -->
+<script>try { const t = localStorage.getItem("podkit-theme"); if (t === "light" || t === "dark") document.documentElement.className = t; } catch {}</script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="top">
-	<a class="brand" href="./"><img src="favicon.svg" alt="" width="24" height="24">podkit templates</a>
-	<nav>
-		<a href="https://github.com/podoes/podkit-templates">Add a template</a>
-		<button type="button" id="server-button" class="quiet">Set your podkit address</button>
+	<a class="brand" href="./" id="brand">
+		<!-- The podoes peeker: two eyes lifting the lid of a container. -->
+		<svg class="brand-mark" viewBox="0 9 200 200" aria-hidden="true" focusable="false">
+			<g class="brand-eyes">
+				<circle class="brand-eye-edge" cx="76" cy="104" r="25"></circle>
+				<circle class="brand-eye-edge" cx="124" cy="104" r="25"></circle>
+				<circle class="brand-eye" cx="76" cy="104" r="20"></circle>
+				<circle class="brand-eye" cx="124" cy="104" r="20"></circle>
+				<g class="brand-pupils"><circle cx="84" cy="98" r="10"></circle><circle cx="132" cy="98" r="10"></circle></g>
+			</g>
+			<rect class="brand-lid" x="26" y="58" width="148" height="22" rx="10"></rect>
+			<rect class="brand-box" x="32" y="120" width="136" height="52" rx="12"></rect>
+		</svg>
+		<span>podkit</span><span class="brand-sub">templates</span>
+	</a>
+	<nav aria-label="Site">
+		<a class="button ghost" href="https://github.com/podoes/podkit-templates" rel="noopener">Add a template</a>
+		<button type="button" id="server-button" class="button">Set your podkit address</button>
+		<button type="button" id="theme-button" class="icon-button" aria-label="Switch between light and dark">
+			<svg class="icon sun" aria-hidden="true"><use href="icons.svg#sun"></use></svg>
+			<svg class="icon moon" aria-hidden="true"><use href="icons.svg#moon"></use></svg>
+		</button>
 	</nav>
 </header>
 
 <main>
-	<section class="intro">
+	<section class="page-head">
+		<p class="eyebrow">Catalog</p>
 		<h1>Services you can run on your own server</h1>
-		<p id="count">Loading the catalog…</p>
+		<p id="count" class="muted">Loading the catalog…</p>
 	</section>
 
-	<section id="presets" class="presets" hidden>
-		<h2>Presets</h2>
-		<p class="muted">A whole project at once: its environments, databases and applications. Apply one in podkit and choose your own servers for it.</p>
-		<ul id="preset-list" class="grid"></ul>
+	<section id="presets" class="block" aria-labelledby="presets-title" hidden>
+		<div class="block-head">
+			<h2 id="presets-title">Presets</h2>
+			<p class="muted">A whole project at once: its environments, databases and applications. Open one to see what it makes, then apply it in podkit and choose your own servers for it.</p>
+		</div>
+		<ul id="preset-list" class="cards"></ul>
 	</section>
 
-	<h2 class="section">Templates</h2>
-	<form class="filters" role="search" onsubmit="return false">
-		<label class="search">
-			<span class="sr">Search templates</span>
-			<input id="q" type="search" placeholder="Search by name, tag or description" autocomplete="off">
-		</label>
-		<label>
-			<span class="sr">Category</span>
-			<select id="category"><option value="">All categories</option></select>
-		</label>
-		<label class="check"><input id="hide-flagged" type="checkbox"> Hide broken and unmaintained</label>
-	</form>
+	<section class="block" aria-labelledby="templates-title">
+		<div class="block-head">
+			<h2 id="templates-title">Templates</h2>
+			<p class="muted">One service each: a compose file podkit deploys to the server you pick.</p>
+		</div>
+		<form class="filters" role="search" onsubmit="return false">
+			<div class="filters-row">
+				<label class="search">
+					<span class="sr">Search templates</span>
+					<svg class="icon" aria-hidden="true"><use href="icons.svg#search"></use></svg>
+					<input id="q" class="field" type="search" placeholder="Search by name, tag or description" autocomplete="off">
+				</label>
+				<label class="check"><input id="hide-flagged" type="checkbox"> Hide broken and unmaintained</label>
+			</div>
+			<div id="categories" class="chips" role="group" aria-label="Category"></div>
+		</form>
 
-	<p id="empty" class="empty" hidden>No template matches. Try fewer words or another category.</p>
-	<ul id="grid" class="grid"></ul>
+		<p id="shown" class="shown" aria-live="polite"></p>
+		<p id="empty" class="empty" hidden>No template matches. Try fewer words or another category.</p>
+		<ul id="grid" class="rows"></ul>
+	</section>
 </main>
 
-<dialog id="detail" aria-labelledby="d-name">
-	<form method="dialog"><button class="close" aria-label="Close">×</button></form>
-	<div class="d-head">
-		<img id="d-logo" alt="" width="56" height="56">
+<dialog id="detail" class="dialog" aria-labelledby="d-name">
+	<header class="dialog-head">
+		<span class="logo logo-lg"><img id="d-logo" alt=""></span>
 		<div>
 			<h2 id="d-name"></h2>
-			<p id="d-meta" class="muted"></p>
+			<p id="d-meta" class="meta"></p>
 		</div>
+		<form method="dialog"><button class="icon-button" aria-label="Close"><svg class="icon" aria-hidden="true"><use href="icons.svg#x"></use></svg></button></form>
+	</header>
+	<div class="dialog-body">
+		<p id="d-status" class="status" hidden></p>
+		<p id="d-description"></p>
+		<p id="d-links" class="links"></p>
+
+		<h3>Deploy</h3>
+		<p><a id="d-deploy" class="button primary large" href="#" rel="noopener">Deploy to my podkit</a></p>
+		<p class="note" id="d-deploy-note"></p>
+
+		<h3>From the command line</h3>
+		<div class="copy"><code id="d-cli"></code><button type="button" id="d-copy" class="button small">Copy</button></div>
+
+		<h3>Files</h3>
+		<p class="note">Download these to import the template by hand. podkit marks an imported file as unofficial.</p>
+		<p id="d-files" class="links"></p>
+
+		<h3>Credits</h3>
+		<p id="d-credits" class="note"></p>
 	</div>
-	<p id="d-status" class="status" hidden></p>
-	<p id="d-description"></p>
-	<p id="d-links" class="links"></p>
-
-	<h3>Deploy</h3>
-	<p><a id="d-deploy" class="button" href="#" rel="noopener">Deploy to my podkit</a></p>
-	<p class="muted" id="d-deploy-note"></p>
-
-	<h3>From the command line</h3>
-	<div class="copy"><code id="d-cli"></code><button type="button" id="d-copy" class="quiet">Copy</button></div>
-
-	<h3>Files</h3>
-	<p class="muted">Download these to import the template by hand. podkit marks an imported file as unofficial.</p>
-	<p id="d-files" class="links"></p>
-
-	<h3>Credits</h3>
-	<p id="d-credits" class="muted"></p>
 </dialog>
 
-<dialog id="server" aria-labelledby="s-title">
+<dialog id="preset" class="dialog wide" aria-labelledby="p-name">
+	<header class="dialog-head">
+		<div>
+			<h2 id="p-name"></h2>
+			<p id="p-meta" class="meta plain"></p>
+		</div>
+		<form method="dialog"><button class="icon-button" aria-label="Close"><svg class="icon" aria-hidden="true"><use href="icons.svg#x"></use></svg></button></form>
+	</header>
+	<div class="dialog-body">
+		<p id="p-description"></p>
+		<ul id="p-tags" class="tags" aria-label="Tags"></ul>
+
+		<h3>What it makes</h3>
+		<div id="p-canvas"></div>
+
+		<h3>What it asks</h3>
+		<ul id="p-asks" class="asks"></ul>
+
+		<h3>Apply</h3>
+		<p class="note">In podkit, refresh the catalog on the Templates page and open Presets: this one is there. You choose a server for each part, read the plan, and confirm. Nothing is made before that.</p>
+
+		<h3>File</h3>
+		<p class="note">A podkit project file. Keep it in podkit as a preset to apply it by hand; podkit marks a kept file as unofficial.</p>
+		<p id="p-files" class="links"></p>
+	</div>
+</dialog>
+
+<dialog id="server" class="dialog" aria-labelledby="s-title">
 	<form method="dialog" id="server-form">
-		<h2 id="s-title">Your podkit address</h2>
-		<p class="muted">The deploy button opens this template on your own server, where you confirm it. The address stays in this browser.</p>
-		<label>Address <input id="server-input" type="url" placeholder="https://podkit.example.com" required></label>
-		<p class="actions"><button value="cancel" class="quiet" formnovalidate>Cancel</button><button value="save" class="button">Save</button></p>
+		<header class="dialog-head">
+			<div>
+				<h2 id="s-title">Your podkit address</h2>
+				<p class="note">The deploy button opens this template on your own server, where you confirm it. The address stays in this browser.</p>
+			</div>
+		</header>
+		<div class="dialog-body">
+			<label class="field-group">Address <input id="server-input" class="field" type="url" placeholder="https://podkit.example.com" required></label>
+		</div>
+		<footer class="dialog-foot"><button value="cancel" class="button" formnovalidate>Cancel</button><button value="save" class="button primary">Save</button></footer>
 	</form>
 </dialog>
 
-<footer>
+<footer class="bottom">
 	<p>Templates are free. Logos are trademarks of their owners and identify the software a template installs.</p>
+	<p>podkit is made by <a href="https://github.com/podoes">podoes</a>.</p>
 </footer>
 <script src="app.js" defer></script>
 </body>

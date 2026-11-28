@@ -1,0 +1,25 @@
+version = 1
+
+[projects.monitoring]
+name = "Monitoring"
+
+[projects.monitoring.environments.production]
+name = "Production"
+
+[projects.monitoring.environments.production.apps.prometheus]
+server = "${choose}"
+slug = "${project}-prometheus"
+image = "docker.io/prom/prometheus:v3.5.0"
+port = 9090
+volumes = ["/prometheus"]
+
+[projects.monitoring.environments.production.apps.grafana]
+server = "${choose}"
+slug = "${project}-grafana"
+image = "docker.io/grafana/grafana-enterprise:12.4"
+port = 3000
+volumes = ["/var/lib/grafana"]
+
+[projects.monitoring.environments.production.apps.grafana.env]
+GF_SECURITY_ADMIN_USER = "admin"
+GF_SECURITY_ADMIN_PASSWORD = "${generate:grafana-admin-password}"

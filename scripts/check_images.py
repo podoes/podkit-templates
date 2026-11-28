@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Asks each registry whether the images of every template still exist.
+"""Asks each registry whether the images of every template and preset still exist.
 
-  scripts/check_images.py [ID ...]      all templates, or the ones named
+  scripts/check_images.py [ID ...]      all templates and presets, or the ones named
 
-Prints the templates with a missing image and exits 1. It does not edit anything: a
+Prints the templates and presets with a missing image and exits 1. It does not edit anything: a
 person marks the template `status = "broken"` in a pull request. An answer that is
 neither "found" nor "not found" (rate limit, registry down) is reported and does not fail.
 """
@@ -74,11 +74,14 @@ def exists(image):
 def main():
     wanted = set(sys.argv[1:])
     missing, unknown, seen = [], [], {}
-    for compose in sorted((ROOT / "templates").glob("*/docker-compose.yml")):
+    # A template's images are in its compose file; a preset's are an application's `image` and
+    # the compose file a stack holds.
+    files = sorted((ROOT / "templates").glob("*/docker-compose.yml")) + sorted((ROOT / "presets").glob("*/preset.toml"))
+    for compose in files:
         template = compose.parent.name
         if wanted and template not in wanted:
             continue
-        for image in sorted(set(re.findall(r"^\s+image:\s*[\"']?([^\s\"'#]+)", compose.read_text(), re.M))):
+        for image in sorted(set(re.findall(r"^\s*image\s*[:=]\s*[\"']?([^\s\"'#]+)", compose.read_text(), re.M))):
             if "${" in image:
                 continue
             if image not in seen:

@@ -1,0 +1,94 @@
+version = 1
+
+[projects.homelab]
+name = "Homelab essentials"
+
+[projects.homelab.environments.production]
+name = "Production"
+
+[projects.homelab.environments.production.stacks.adguardhome]
+server = "${choose}"
+source = "template:adguardhome@latest"
+compose = '''
+# dokploy: allow-host-ports — DNS (53/tcp+udp), DHCP (67/68) and DNS-over-TLS/QUIC (853) are not HTTP protocols; clients must reach them directly on the host, Traefik cannot route them.
+services:
+  adguardhome:
+    image: adguard/adguardhome:latest
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp" # DNS
+      - "53:53/udp" # DNS
+      - "67:67/udp" # DHCP Server
+      - "68:68/tcp" # DHCP Client
+      - "853:853/tcp" # DNS over TLS, DNS-over-QUIC
+      - "853:853/udp" # DNS over TLS, DNS-over-QUIC
+    expose:
+      - 6060 # HTTP (pprof) — debug endpoint, no need to publish it on the host
+    volumes:
+      - adguardhome-work:/opt/adguardhome/work
+      - adguardhome-conf:/opt/adguardhome/conf
+
+volumes:
+  adguardhome-work: {}
+  adguardhome-conf: {}
+'''
+
+[projects.homelab.environments.production.stacks.homepage]
+server = "${choose}"
+source = "template:homepage@1.13.1"
+compose = '''
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:v1.13.1
+    restart: unless-stopped
+    expose:
+      - 3000
+    volumes:
+      - ../files/homepage-config:/app/config
+'''
+
+[projects.homelab.environments.production.stacks.homepage.env]
+HOMEPAGE_ALLOWED_HOSTS = "${secret:homepage-hostname}"
+PGID = "1000"
+PUID = "1000"
+
+[projects.homelab.environments.production.apps.vaultwarden]
+server = "${choose}"
+slug = "${project}-vaultwarden"
+image = "docker.io/vaultwarden/server:1.37.5"
+port = 80
+volumes = ["/data"]
+
+[projects.homelab.environments.production.apps.vaultwarden.env]
+SIGNUPS_ALLOWED = "true"
+
+[projects.homelab.environments.production.apps.uptime-kuma]
+server = "${choose}"
+slug = "${project}-uptime-kuma"
+image = "docker.io/louislam/uptime-kuma:1"
+port = 3001
+volumes = ["/app/data"]
+
+[[projects.homelab.networks]]
+name = "homelab"
+server = "${choose}"
+
+[[projects.homelab.networks.members]]
+environment = "production"
+kind = "stack"
+name = "adguardhome"
+
+[[projects.homelab.networks.members]]
+environment = "production"
+kind = "stack"
+name = "homepage"
+
+[[projects.homelab.networks.members]]
+environment = "production"
+kind = "application"
+name = "vaultwarden"
+
+[[projects.homelab.networks.members]]
+environment = "production"
+kind = "application"
+name = "uptime-kuma"
