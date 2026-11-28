@@ -14,7 +14,7 @@ services:
       - filestash:/app/data/state/
 
   wopi_server:
-    image: collabora/code:24.04.10.2.1
+    image: collabora/code:24.04.13.3.1
     restart: always
     environment:
       # Set below to "true" if you are using custom domain and want to enable SSL
