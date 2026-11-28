@@ -13,7 +13,7 @@ services:
       - 6379
 
   kener:
-    image: rajnandan1/kener:4.1.1
+    image: rajnandan1/kener:4.2.2
     environment:
       - TZ=${TZ}
       - KENER_SECRET_KEY=${KENER_SECRET_KEY} # 🔐 API key / secret
