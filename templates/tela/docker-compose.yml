@@ -55,7 +55,7 @@ services:
       - deckcache:/data
 
   gotenberg:
-    image: gotenberg/gotenberg:8
+    image: gotenberg/gotenberg:9
     restart: unless-stopped
 
 volumes:
