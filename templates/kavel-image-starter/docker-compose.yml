@@ -1,6 +1,6 @@
 services:
   kavel-image-starter:
-    image: san8888/kavel-image-starter:1.0.1
+    image: san8888/kavel-image-starter:1.1.0
     restart: unless-stopped
     expose:
       - 3000
