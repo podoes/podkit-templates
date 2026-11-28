@@ -71,7 +71,7 @@ services:
       - ./certs:/certs
 
   datalens:
-    image: ghcr.io/datalens-tech/datalens-ui:0.2601.0
+    image: ghcr.io/datalens-tech/datalens-ui:v1.65.0
     restart: always
     expose:
       - 8080 # web UI — routed through Traefik via the template domain
