@@ -1,6 +1,6 @@
 services:
   prefect:
-    image: prefecthq/prefect:3.7.5-python3.12
+    image: prefecthq/prefect:3.9.5-python3.12
     restart: unless-stopped
     depends_on:
       prefect-postgres:
@@ -43,7 +43,7 @@ services:
       start_period: 60s
 
   prefect-services:
-    image: prefecthq/prefect:3.7.5-python3.12
+    image: prefecthq/prefect:3.9.5-python3.12
     restart: unless-stopped
     depends_on:
       prefect:
@@ -68,7 +68,7 @@ services:
         exec prefect server services start
 
   prefect-worker:
-    image: prefecthq/prefect:3.7.5-python3.12
+    image: prefecthq/prefect:3.9.5-python3.12
     restart: unless-stopped
     depends_on:
       prefect:
