@@ -1,6 +1,6 @@
 services:
   freescout-db:
-    image: mariadb:10.6
+    image: mariadb:10.11
     volumes:
       - freescout-db-data:/var/lib/mysql
     environment:

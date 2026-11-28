@@ -14,7 +14,7 @@ services:
       - db
 
   db:
-    image: mariadb:10.6
+    image: mariadb:10.11
     environment:
       - MYSQL_DATABASE=wordpress
       - MYSQL_USER=wordpress
