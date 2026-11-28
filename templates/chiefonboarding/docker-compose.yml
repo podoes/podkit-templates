@@ -1,6 +1,6 @@
 services:
   chiefonboarding:
-    image: chiefonboarding/chiefonboarding:v2.2.5
+    image: chiefonboarding/chiefonboarding:v2.5.2
     restart: unless-stopped
     environment:
       - SECRET_KEY=${SECRET_KEY}
