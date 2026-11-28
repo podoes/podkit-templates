@@ -50,7 +50,7 @@ services:
     restart: always
 
   clickhouse:
-    image: clickhouse/clickhouse-server:26.8-alpine
+    image: clickhouse/clickhouse-server:26.11-alpine
     volumes:
       - clickhouse_data:/var/lib/clickhouse
     environment:
