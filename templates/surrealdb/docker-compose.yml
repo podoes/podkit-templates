@@ -1,6 +1,6 @@
 services:
   surrealdb:
-    image: surrealdb/surrealdb:v2.3.10
+    image: surrealdb/surrealdb:v2.7.0
     environment:
       SURREAL_USER: ${SURREAL_USER}
       SURREAL_PASS: ${SURREAL_PASS}
