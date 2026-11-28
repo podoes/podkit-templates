@@ -1,6 +1,6 @@
 services:
   rallly:
-    image: lukevella/rallly:4.11.1
+    image: lukevella/rallly:4.17.2
     restart: unless-stopped
     depends_on:
       - db
