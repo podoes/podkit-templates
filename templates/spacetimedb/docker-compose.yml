@@ -1,6 +1,6 @@
 services:
   spacetimedb:
-    image: clockworklabs/spacetime:v2.6.1
+    image: clockworklabs/spacetime:v2.16.3
     restart: unless-stopped
     command: start
     expose:
