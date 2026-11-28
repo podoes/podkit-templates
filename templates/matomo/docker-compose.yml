@@ -1,6 +1,6 @@
 services:
   matomo:
-    image: matomo:5.1-apache
+    image: matomo:5.14-apache
     restart: always
     environment:
       - MATOMO_DATABASE_HOST=${MATOMO_DATABASE_HOST}
