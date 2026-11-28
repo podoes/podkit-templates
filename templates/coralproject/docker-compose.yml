@@ -1,6 +1,6 @@
 services:
   coral:
-    image: coralproject/talk:9.7.0
+    image: coralproject/talk:9.11.9
     expose:
       - "3000"
     environment:
