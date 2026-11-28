@@ -14,7 +14,7 @@ services:
 
 
   typebot-builder:
-    image: baptistearno/typebot-builder:2.27
+    image: baptistearno/typebot-builder:2.28
     restart: always
     depends_on:
       - typebot-db
