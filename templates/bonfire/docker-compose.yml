@@ -1,6 +1,6 @@
 services:
   bonfire:
-    image: bonfirenetworks/bonfire:1.0.5-social-amd64
+    image: bonfirenetworks/bonfire:1.1.0-social-amd64
     restart: unless-stopped
     depends_on:
       db:
