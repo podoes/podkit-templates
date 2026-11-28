@@ -1,5 +1,5 @@
 x-chatwoot-base: &chatwoot-base
-  image: chatwoot/chatwoot:v4.12.1
+  image: chatwoot/chatwoot:v4.20.1
   restart: unless-stopped
   volumes:
     - chatwoot-storage:/app/storage
