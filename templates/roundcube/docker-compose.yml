@@ -1,6 +1,6 @@
 services:
   roundcubemail:
-    image: roundcube/roundcubemail:1.6.9-apache
+    image: roundcube/roundcubemail:1.7.7-apache
     volumes:
       - ./www:/var/www/html
       - ./db/sqlite:/var/roundcube/db
