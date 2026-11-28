@@ -1,6 +1,6 @@
 services:
   outline:
-    image: outlinewiki/outline:0.82.0
+    image: outlinewiki/outline:0.87.4
     restart: always
     depends_on:
       - postgres
