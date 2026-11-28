@@ -1,6 +1,6 @@
 services:
   pretix:
-    image: pretix/standalone:2026.8.0
+    image: pretix/standalone:2026.9.3
     restart: unless-stopped
     command: ["all"]
     expose:
