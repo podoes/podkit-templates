@@ -32,7 +32,7 @@ services:
       - outline_data-test-outline-khufpx:/var/lib/outline/data
 
   dex:
-    image: nginx:1.27-alpine
+    image: nginx:1.31-alpine
     restart: always
     depends_on:
       - dex-server
