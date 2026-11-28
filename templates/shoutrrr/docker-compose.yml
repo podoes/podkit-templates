@@ -1,6 +1,6 @@
 services:
   shoutrrr:
-    image: ghcr.io/coollabsio/shoutrrr:1.5.4
+    image: ghcr.io/coollabsio/shoutrrr:1.5.9
     restart: unless-stopped
     # Dokploy writes its Environment tab to .env. Pass optional settings through
     # without replacing upstream's nullable defaults with empty strings.
