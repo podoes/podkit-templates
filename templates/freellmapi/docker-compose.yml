@@ -1,6 +1,6 @@
 services:
   freellmapi:
-    image: ghcr.io/tashfeenahmed/freellmapi:v0.8.4
+    image: ghcr.io/tashfeenahmed/freellmapi:v0.16.51
     restart: unless-stopped
     environment:
       NODE_ENV: production
