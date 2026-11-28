@@ -1,0 +1,31 @@
+version = 1
+
+[projects.app]
+name = "App"
+
+[projects.app.environments.production]
+name = "Production"
+
+[projects.app.environments.production.databases.main]
+server = "${choose}"
+engine = "postgres"
+
+[projects.app.environments.staging]
+name = "Staging"
+
+[projects.app.environments.staging.databases.main-staging]
+server = "${choose}"
+engine = "postgres"
+
+[projects.app.environments.staging.apps.mailpit]
+server = "${choose}"
+slug = "${project}-mailpit"
+image = "docker.io/axllent/mailpit:v1.22.3"
+port = 8025
+volumes = ["/data"]
+
+[projects.app.environments.staging.apps.mailpit.env]
+MP_DATABASE = "/data/mailpit.db"
+MP_MAX_MESSAGES = "5000"
+MP_SMTP_AUTH_ACCEPT_ANY = "true"
+MP_SMTP_AUTH_ALLOW_INSECURE = "true"

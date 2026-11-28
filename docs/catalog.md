@@ -38,6 +38,30 @@ Each template:
 | `revision` | Changes only when what gets deployed changes |
 | `files` | Name, SHA-256 and size of each file |
 
+## Presets
+
+A preset is a podkit project file (`podkit.toml` with one project) that any team can apply:
+`presets/<id>/preset.toml`, with `about.toml` beside it for its name, description, tags and
+maintainers. The index carries each one whole, under `presets`:
+
+| Field | Meaning |
+|---|---|
+| `id`, `name`, `description`, `tags`, `maintainers` | From the folder and `about.toml` |
+| `secrets` | For each secret the person types in, what it is for |
+| `file`, `sha256` | The project file and its hash |
+| `outline` | What it makes, for the website: each environment with its parts (kind, name, detail, mark; `services` and `shared` for a stack of several: what each service uses and the volumes they share; `logo` when the part is named after a catalog template), and each network with its members |
+
+It is in the index and not in the archive so that a podkit from before presets, which
+refuses an archive entry outside `templates/`, still reads the catalog.
+
+The website draws a preset from `outline` in the look of podkit's project canvas: a frame for
+each environment and a tile for each part. It lays them out itself, so the build needs
+nothing of podkit.
+
+The build checks what belongs to one install and so cannot be in a catalog: every `server`
+is `"${choose}"`, an application's `slug` has `"${project}"` in it, and there is no deploy key,
+registry or hostname. podkit checks the rest when it reads the catalog.
+
 ## Revisions
 
 `revision` is a hash of the compose file and of every `template.toml` key that is not for

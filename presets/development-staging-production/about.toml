@@ -1,0 +1,4 @@
+name = "Development, staging and production"
+description = "Three environments, each with its own Postgres, for a team that tries a change twice before it reaches production."
+tags = ["starter", "postgres", "environments"]
+maintainers = []

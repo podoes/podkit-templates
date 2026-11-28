@@ -1,0 +1,4 @@
+name = "Queue and cache"
+description = "A RabbitMQ broker with its management page and a Redis cache, for an application that hands work to background workers. The broker's password is generated; the user is `app`."
+tags = ["queue", "rabbitmq", "redis", "workers"]
+maintainers = []

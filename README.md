@@ -6,6 +6,9 @@ folder with a compose file, a `template.toml` and a logo.
 This repository is the only source of official templates. Its website is the catalog:
 browse it, then deploy a template to your own podkit.
 
+It also holds presets: whole projects (environments, databases, applications) that a team
+applies in one go and binds to its own servers.
+
 ## Add or change a template
 
 Open a pull request. [CONTRIBUTING.md](CONTRIBUTING.md) has the file format and the checks.
@@ -16,7 +19,13 @@ scripts/build.py             # also writes dist/: the website and the catalog
 python3 -m http.server -d dist
 ```
 
-The scripts need Python 3.11 or later and nothing else.
+The scripts need Python 3.11 or later and nothing else. With [devenv](https://devenv.sh) the
+shell brings it, `serve` (builds and serves `dist/` at http://127.0.0.1:8767) and git hooks
+that run the same check before each commit.
+
+The website (`site/`) wears podkit's design: the tokens, fonts and components of the podoes
+design system as podkit ships them (`crates/ui/src/theme.css` and `components.css` there). A
+value that changes in podkit changes in `site/style.css` too.
 
 ## How podkit uses it
 

@@ -1,0 +1,4 @@
+name = "Staging with a mail catcher"
+description = "Production and staging, each with its own Postgres. Staging also has Mailpit: point the staging application's SMTP at it and every mail it sends is kept there to read, and none reaches a real inbox."
+tags = ["environments", "postgres", "mail", "staging"]
+maintainers = []

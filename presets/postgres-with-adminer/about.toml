@@ -1,0 +1,4 @@
+name = "Postgres with Adminer"
+description = "A Postgres database with Adminer next to it, to browse and edit the data from a browser. Sign in to Adminer with the database's own host, user and password from its page in podkit."
+tags = ["postgres", "adminer", "database", "tools"]
+maintainers = []

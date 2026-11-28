@@ -1,0 +1,7 @@
+name = "Blog with analytics"
+description = "A site that publishes and knows who reads it, without handing visitors to anyone else. Ghost is the blog and newsletter; Umami counts visits without cookies. Each brings its own database. After applying, route the hostname you typed to Ghost and another to Umami, then add Umami's tracking script to the Ghost theme."
+tags = ["blog", "ghost", "analytics", "umami", "newsletter"]
+maintainers = []
+
+[secrets]
+ghost-hostname = "The hostname you will route to Ghost, such as blog.example.com, without http://. Ghost writes its links with it."

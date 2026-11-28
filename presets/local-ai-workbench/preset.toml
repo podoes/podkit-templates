@@ -1,0 +1,81 @@
+version = 1
+
+[projects.ai]
+name = "Local AI workbench"
+
+[projects.ai.environments.production]
+name = "Production"
+
+[projects.ai.environments.production.stacks.open-webui]
+server = "${choose}"
+compose = '''
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    restart: unless-stopped
+    depends_on:
+      - ollama
+    expose:
+      - 8080
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
+    volumes:
+      - open-webui:/app/backend/data
+  ollama:
+    image: docker.io/ollama/ollama:latest
+    restart: unless-stopped
+    expose:
+      - 11434
+    volumes:
+      - ollama:/root/.ollama
+volumes:
+  open-webui:
+  ollama:
+'''
+
+[projects.ai.environments.production.stacks.open-webui.env]
+WEBUI_SECRET_KEY = "${generate:open-webui-secret-key}"
+
+[projects.ai.environments.production.stacks.qdrant]
+server = "${choose}"
+source = "template:qdrant@latest"
+compose = '''
+services:
+  qdrant:
+    image: "qdrant/qdrant:latest"
+    environment:
+      - SERVICE_FQDN_QDRANT_6333
+      - QDRANT__SERVICE__API_KEY=${QDRANT_API_KEY}
+    expose:
+      - "6333"
+    volumes:
+      - "qdrant_data:/qdrant/storage"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - bash -c ':> /dev/tcp/127.0.0.1/6333' || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  qdrant_data: {}
+'''
+
+[projects.ai.environments.production.stacks.qdrant.env]
+QDRANT_API_KEY = "${generate:qdrant-qdrant-api-key}"
+
+[[projects.ai.networks]]
+name = "ai"
+server = "${choose}"
+
+[[projects.ai.networks.members]]
+environment = "production"
+kind = "stack"
+name = "open-webui"
+
+[[projects.ai.networks.members]]
+environment = "production"
+kind = "stack"
+name = "qdrant"

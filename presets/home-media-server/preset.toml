@@ -1,0 +1,109 @@
+version = 1
+
+[projects.media]
+name = "Home media server"
+
+[projects.media.environments.production]
+name = "Production"
+
+[projects.media.environments.production.stacks.library]
+server = "${choose}"
+compose = '''
+services:
+  jellyfin:
+    image: docker.io/jellyfin/jellyfin:10
+    restart: unless-stopped
+    expose:
+      - 8096
+    volumes:
+      - jellyfin-config:/config
+      - jellyfin-cache:/cache
+      - library:/data
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    expose:
+      - 8989
+    volumes:
+      - sonarr-config:/config
+      - library:/data
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    expose:
+      - 7878
+    volumes:
+      - radarr-config:/config
+      - library:/data
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    expose:
+      - 9696
+    volumes:
+      - prowlarr-config:/config
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - WEBUI_PORT=8080
+      - TORRENTING_PORT=6881
+    expose:
+      - 8080
+    ports:
+      - 6881:6881
+      - 6881:6881/udp
+    volumes:
+      - qbittorrent-config:/config
+      - library:/data
+volumes:
+  jellyfin-config:
+  jellyfin-cache:
+  sonarr-config:
+  radarr-config:
+  prowlarr-config:
+  qbittorrent-config:
+  library:
+'''
+
+[projects.media.environments.production.stacks.library.env]
+TZ = "Etc/UTC"
+
+[projects.media.environments.production.apps.jellyseerr]
+server = "${choose}"
+slug = "${project}-jellyseerr"
+image = "docker.io/fallenbagel/jellyseerr:2.7.3"
+port = 5055
+volumes = ["/app/config"]
+
+[projects.media.environments.production.apps.jellyseerr.env]
+LOG_LEVEL = "info"
+
+[[projects.media.networks]]
+name = "media"
+server = "${choose}"
+
+[[projects.media.networks.members]]
+environment = "production"
+kind = "stack"
+name = "library"
+
+[[projects.media.networks.members]]
+environment = "production"
+kind = "application"
+name = "jellyseerr"

@@ -1,0 +1,23 @@
+version = 1
+
+[projects.app]
+name = "App"
+
+[projects.app.environments.production]
+name = "Production"
+
+[projects.app.environments.production.databases.main]
+server = "${choose}"
+engine = "postgres"
+
+[projects.app.environments.production.apps.search]
+server = "${choose}"
+slug = "${project}-search"
+image = "docker.io/getmeili/meilisearch:v1.35.1"
+port = 7700
+volumes = ["/meili_data"]
+
+[projects.app.environments.production.apps.search.env]
+MEILI_ENV = "production"
+MEILI_NO_ANALYTICS = "true"
+MEILI_MASTER_KEY = "${generate:search-master-key}"

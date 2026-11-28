@@ -1,0 +1,170 @@
+version = 1
+
+[projects.family]
+name = "Photos and documents"
+
+[projects.family.environments.production]
+name = "Production"
+
+[projects.family.environments.production.stacks.immich]
+server = "${choose}"
+source = "template:immich@v3.0.2"
+compose = '''
+services:
+  immich-server:
+    image: ghcr.io/immich-app/immich-server:v3.0.2
+
+    volumes:
+      - immich-library:/data
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      immich-redis:
+        condition: service_healthy
+      immich-database:
+        condition: service_healthy
+    environment:
+      # Database Configuration
+      DB_HOSTNAME: ${DB_HOSTNAME}
+      DB_PORT: ${DB_PORT}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE_NAME: ${DB_DATABASE_NAME}
+      # Redis Configuration
+      REDIS_HOSTNAME: ${REDIS_HOSTNAME}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_DBINDEX: ${REDIS_DBINDEX}
+      # Server Configuration
+      TZ: ${TZ}
+    restart: unless-stopped
+    healthcheck:
+      disable: false
+
+  immich-machine-learning:
+    image: ghcr.io/immich-app/immich-machine-learning:v3.0.2
+
+    volumes:
+      - immich-model-cache:/cache
+    restart: unless-stopped
+    healthcheck:
+      disable: false
+
+  immich-redis:
+    image: valkey/valkey:9
+
+    volumes:
+      - immich-redis-data:/data
+    healthcheck:
+      test: redis-cli ping || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  immich-database:
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
+
+    volumes:
+      - immich-postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_DATABASE_NAME}
+      POSTGRES_INITDB_ARGS: '--data-checksums'
+    shm_size: 128mb
+    healthcheck:
+      test: pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE_NAME} || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  immich-model-cache:
+  immich-postgres:
+  immich-library:
+  immich-redis-data:
+'''
+
+[projects.family.environments.production.stacks.immich.env]
+DB_DATABASE_NAME = "immich"
+DB_HOSTNAME = "immich-database"
+DB_PASSWORD = "${generate:immich-db-password}"
+DB_PORT = "5432"
+DB_USERNAME = "immich"
+REDIS_DBINDEX = "0"
+REDIS_HOSTNAME = "immich-redis"
+REDIS_PORT = "6379"
+TZ = "UTC"
+
+[projects.family.environments.production.stacks.paperless-ngx]
+server = "${choose}"
+source = "template:paperless-ngx@2.20.15"
+compose = '''
+services:
+  paperless-ngx:
+    image: ghcr.io/paperless-ngx/paperless-ngx:2.20.15
+    restart: unless-stopped
+    depends_on:
+      paperless-ngx-db:
+        condition: service_healthy
+      paperless-ngx-broker:
+        condition: service_healthy
+    expose:
+      - 8000
+    environment:
+      PAPERLESS_REDIS: redis://paperless-ngx-broker:6379
+      PAPERLESS_DBHOST: paperless-ngx-db
+      PAPERLESS_DBNAME: paperless
+      PAPERLESS_DBUSER: paperless
+      PAPERLESS_DBPASS: ${POSTGRES_PASSWORD}
+      PAPERLESS_SECRET_KEY: ${PAPERLESS_SECRET_KEY}
+      PAPERLESS_URL: ${PAPERLESS_URL}
+      PAPERLESS_TIME_ZONE: ${PAPERLESS_TIME_ZONE}
+      PAPERLESS_OCR_LANGUAGE: ${PAPERLESS_OCR_LANGUAGE}
+    volumes:
+      - paperless-data:/usr/src/paperless/data
+      - paperless-media:/usr/src/paperless/media
+      - paperless-export:/usr/src/paperless/export
+      - paperless-consume:/usr/src/paperless/consume
+
+  paperless-ngx-db:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: paperless
+      POSTGRES_USER: paperless
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - paperless-db:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U paperless -d paperless"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  paperless-ngx-broker:
+    image: redis:8-alpine
+    restart: unless-stopped
+    volumes:
+      - paperless-redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  paperless-data: {}
+  paperless-media: {}
+  paperless-export: {}
+  paperless-consume: {}
+  paperless-db: {}
+  paperless-redis: {}
+'''
+
+[projects.family.environments.production.stacks.paperless-ngx.env]
+PAPERLESS_OCR_LANGUAGE = "eng"
+PAPERLESS_SECRET_KEY = "${generate:paperless-ngx-paperless-secret-key}"
+PAPERLESS_TIME_ZONE = "UTC"
+PAPERLESS_URL = "http://${secret:paperless-ngx-hostname}"
+POSTGRES_PASSWORD = "${generate:paperless-ngx-postgres-password}"

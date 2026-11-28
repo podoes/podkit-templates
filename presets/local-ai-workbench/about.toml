@@ -1,0 +1,4 @@
+name = "Local AI workbench"
+description = "Chat with models that run on your own hardware. Open WebUI is the chat page and Ollama, in the same stack, runs the models you pull from it. Qdrant is a vector database for documents you want to ask about; on the ai network Open WebUI reaches it as podkit-qdrant, port 6333, with the API key podkit made up. After applying, route a hostname to Open WebUI. Ollama wants memory: 8 GB for small models, and a GPU helps."
+tags = ["ai", "llm", "ollama", "open-webui", "qdrant"]
+maintainers = []

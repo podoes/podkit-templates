@@ -1,0 +1,4 @@
+name = "Home media server"
+description = "A streaming server for a homelab. Jellyfin plays the library; Sonarr and Radarr keep series and films, Prowlarr finds them and qBittorrent downloads them, all on one shared library volume. Jellyseerr is where the household asks for something new. After applying, route a hostname to Jellyfin and to each tool you want to open on the stack's page; on the media network Jellyseerr reaches them as podkit-jellyfin, podkit-sonarr and podkit-radarr."
+tags = ["homelab", "media", "streaming", "jellyfin", "sonarr", "radarr"]
+maintainers = []
