@@ -1,6 +1,6 @@
 services:
   openseo:
-    image: ghcr.io/every-app/open-seo:v0.1.6
+    image: ghcr.io/every-app/open-seo:v0.1.32
     restart: unless-stopped
     environment:
       - CLOUDFLARE_INCLUDE_PROCESS_ENV=true
