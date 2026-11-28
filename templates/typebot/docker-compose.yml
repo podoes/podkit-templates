@@ -32,7 +32,7 @@ services:
       DEFAULT_WORKSPACE_PLAN: '${DEFAULT_WORKSPACE_PLAN}'
 
   typebot-viewer:
-    image: baptistearno/typebot-viewer:2.27.0
+    image: baptistearno/typebot-viewer:2.28.2
     restart: always
     environment:
       ENCRYPTION_SECRET: '${ENCRYPTION_SECRET}'
