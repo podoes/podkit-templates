@@ -1,6 +1,6 @@
 services:
   web:
-    image: tombursch/kitchenowl:v0.7.1
+    image: tombursch/kitchenowl:v0.8.1
     restart: unless-stopped
     environment:
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
