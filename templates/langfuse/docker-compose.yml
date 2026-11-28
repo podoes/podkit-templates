@@ -24,7 +24,7 @@ services:
       - langfuse-postgres-data:/var/lib/postgresql/data
 
   clickhouse:
-    image: docker.io/clickhouse/clickhouse-server:25.12
+    image: docker.io/clickhouse/clickhouse-server:26.11
     restart: unless-stopped
     user: "101:101"
     environment:
