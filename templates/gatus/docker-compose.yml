@@ -1,6 +1,6 @@
 services:
   gatus:
-    image: ghcr.io/twin/gatus:v5.36.0
+    image: ghcr.io/twin/gatus:v5.38.0
     restart: unless-stopped
     expose:
       - 8080
