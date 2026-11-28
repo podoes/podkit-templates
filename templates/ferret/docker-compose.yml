@@ -1,6 +1,6 @@
 services:
   ferret:
-    image: ghcr.io/ferret-project/ferret:2026.11.4
+    image: ghcr.io/ferret-project/ferret:2026.11.31
     restart: unless-stopped
     environment:
       # The address people (and AI assistants over MCP) use: Dokploy's domain for this app.
