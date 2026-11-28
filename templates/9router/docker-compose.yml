@@ -31,7 +31,7 @@ services:
   # Optional token-reduction proxy that 9Router calls through HEADROOM_URL.
   # Shipped as a sidecar because the 9Router image does not bundle it.
   headroom:
-    image: ghcr.io/chopratejas/headroom:0.6.7
+    image: ghcr.io/chopratejas/headroom:0.27.0
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8787/health')"]
