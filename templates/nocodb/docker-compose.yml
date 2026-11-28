@@ -12,7 +12,7 @@ services:
       - nc_data:/usr/app/data
 
   root_db:
-    image: postgres:16.6
+    image: postgres:16.16
     restart: always
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
