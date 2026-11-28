@@ -1,6 +1,6 @@
 services:
   openlivery:
-    image: caddy:2.10.2-alpine
+    image: caddy:2.11.9-alpine
     restart: unless-stopped
     volumes:
       - ../files/Caddyfile:/etc/caddy/Caddyfile:ro

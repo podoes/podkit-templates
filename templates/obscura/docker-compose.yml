@@ -18,7 +18,7 @@ services:
       - "3000"
 
   caddy:
-    image: caddy:2.10.2-alpine
+    image: caddy:2.11.9-alpine
     restart: unless-stopped
     environment:
       OBSCURA_HOST: ${OBSCURA_HOST}
