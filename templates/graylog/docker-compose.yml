@@ -53,7 +53,7 @@ services:
       start_period: 30s
 
   opensearch:
-    image: opensearchproject/opensearch:2.19.5
+    image: opensearchproject/opensearch:2.19.8
     restart: unless-stopped
     environment:
       discovery.type: single-node
