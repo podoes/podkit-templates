@@ -1,6 +1,6 @@
 services:
   chatto:
-    image: ghcr.io/chattocorp/chatto:0.4
+    image: ghcr.io/chattocorp/chatto:0.6
     restart: unless-stopped
     expose:
       - "4000"
