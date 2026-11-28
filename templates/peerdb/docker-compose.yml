@@ -95,7 +95,7 @@ services:
       TEMPORAL_ADDRESS: temporal:7233
       TEMPORAL_CORS_ORIGINS: http://localhost:3000
       TEMPORAL_CSRF_COOKIE_INSECURE: "true"
-    image: temporalio/ui:2.43.3@sha256:31f0d8c1ed0bfc49c9c20ea9613ee9dd5c52f5f989bacb8a30210f847028e9cd
+    image: temporalio/ui:2.58.1@sha256:ac3c13eddb4547d830991bb5eee93a5d97140134522b7297fdb2be1fe25ef925
     expose:
       - 8080
 
