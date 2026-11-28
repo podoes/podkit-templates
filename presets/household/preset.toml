@@ -1,0 +1,108 @@
+version = 1
+
+[projects.household]
+name = "Household"
+
+[projects.household.environments.production]
+name = "Production"
+
+[projects.household.environments.production.stacks.actualbudget]
+server = "${choose}"
+source = "template:actualbudget@latest"
+compose = '''
+services:
+  actualbudget:
+    image: docker.io/actualbudget/actual-server:latest
+    environment:
+      # See all options at https://actualbudget.org/docs/config
+      - ACTUAL_PORT=5006
+    volumes:
+      - actual-data:/data
+    restart: unless-stopped
+
+volumes:
+  actual-data:
+'''
+
+[projects.household.environments.production.stacks.mealie]
+server = "${choose}"
+source = "template:mealie@latest"
+compose = '''
+services:
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:latest
+    deploy:
+      resources:
+        limits:
+          memory: 1000M
+    volumes:
+      - mealie-data:/app/data/
+    environment:
+      PUID: 1000
+      PGID: 1000
+
+      # Basic settings
+      BASE_URL: ${BASE_URL}
+      API_DOCS: ${API_DOCS}
+      ALLOW_SIGNUP: ${ALLOW_SIGNUP}
+      DEFAULT_GROUP: ${DEFAULT_GROUP}
+      DEFAULT_HOUSEHOLD: ${DEFAULT_HOUSEHOLD}
+      TZ: ${TZ}
+      SECURITY_MAX_LOGIN_ATTEMPTS: ${SECURITY_MAX_LOGIN_ATTEMPTS}
+      SECURITY_USER_LOCKOUT_TIME: ${SECURITY_USER_LOCKOUT_TIME}
+      DAILY_SCHEDULE_TIME: ${DAILY_SCHEDULE_TIME}
+
+      # Email settings
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_AUTH_STRATEGY: ${SMTP_AUTH_STRATEGY}
+      SMTP_FROM_NAME: ${SMTP_FROM_NAME}
+      SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+
+volumes:
+  mealie-data: {}
+'''
+
+[projects.household.environments.production.stacks.mealie.env]
+ALLOW_SIGNUP = "false"
+API_DOCS = "False"
+BASE_URL = "https://${secret:mealie-hostname}"
+DAILY_SCHEDULE_TIME = "01:00"
+DEFAULT_GROUP = "Home"
+DEFAULT_HOUSEHOLD = "Family"
+SECURITY_MAX_LOGIN_ATTEMPTS = "10"
+SECURITY_USER_LOCKOUT_TIME = "24"
+SMTP_AUTH_STRATEGY = "TLS"
+SMTP_FROM_EMAIL = ""
+SMTP_FROM_NAME = "Mealie"
+SMTP_HOST = ""
+SMTP_PASSWORD = ""
+SMTP_PORT = "587"
+SMTP_USER = ""
+TZ = "Europe/London"
+
+[projects.household.environments.production.stacks.homebox]
+server = "${choose}"
+source = "template:homebox@latest"
+compose = '''
+services:
+  homebox:
+    image: ghcr.io/sysadminsmedia/homebox:latest
+    restart: unless-stopped
+    expose:
+      - "7745"
+    environment:
+      - TZ=${TZ}
+      - HBOX_AUTH_API_KEY_PEPPER=${HBOX_AUTH_API_KEY_PEPPER}
+    volumes:
+      - homebox-data:/data
+
+volumes:
+  homebox-data:
+'''
+
+[projects.household.environments.production.stacks.homebox.env]
+HBOX_AUTH_API_KEY_PEPPER = "${generate:homebox-api-key-pepper-1}${generate:homebox-api-key-pepper-2}"
+TZ = "Etc/UTC"

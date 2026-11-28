@@ -1,0 +1,8 @@
+name = "Reading and bookmarks"
+description = "What you read and want to find again, kept on your own server. FreshRSS follows the sites you read, linkding keeps the links worth keeping and Memos is a quick place for notes. Each keeps its data in its own volumes. After applying, route a hostname to each on its page. linkding's first account is admin, with the password you give here."
+tags = ["homelab", "bookmarks", "notes", "rss"]
+maintainers = []
+
+[secrets]
+linkding-admin-password = "The password of linkding's first account, admin."
+linkding-hostname = "The hostname you will route to Linkding, such as linkding.example.com, without https://."
