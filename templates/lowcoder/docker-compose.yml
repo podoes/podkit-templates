@@ -1,7 +1,7 @@
 services:
   ## Start Lowcoder (all-in-one)
   lowcoder-api-service:
-    image: lowcoderorg/lowcoder-ce:2.6.4
+    image: lowcoderorg/lowcoder-ce:3.0.0
     environment:
       REDIS_ENABLED: "true"
       MONGODB_ENABLED: "true"
