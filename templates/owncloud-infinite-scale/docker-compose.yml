@@ -10,7 +10,7 @@ services:
       - ../files/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro
 
   owncloud-infinite-scale:
-    image: owncloud/ocis:8.0.3
+    image: owncloud/ocis:8.2.4
     restart: unless-stopped
     entrypoint:
       - /bin/sh
