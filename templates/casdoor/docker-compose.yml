@@ -13,7 +13,7 @@ services:
     restart: unless-stopped
 
   casdoor-db:
-    image: postgres:16
+    image: postgres:19
     environment:
       - POSTGRES_USER=casdoor
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

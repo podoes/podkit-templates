@@ -38,7 +38,7 @@ services:
       redis:
         condition: service_healthy
   postgres:
-    image: postgres:16-alpine
+    image: postgres:19-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: pretix

@@ -38,7 +38,7 @@ services:
       - EVOAI_ENABLED=${EVOAI_ENABLED}
 
   evolution-postgres:
-    image: postgres:16-alpine
+    image: postgres:19-alpine
     restart: always
     volumes:
       - evolution-postgres-data:/var/lib/postgresql/data

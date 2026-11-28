@@ -1,6 +1,6 @@
 services:
   pg-compeng:
-    image: postgres:16-alpine
+    image: postgres:19-alpine
     restart: always
     environment:
       POSTGRES_PASSWORD: "postgres"
@@ -42,7 +42,7 @@ services:
       - pg-compeng
 
   pg-us:
-    image: postgres:16-alpine
+    image: postgres:19-alpine
     restart: always
     environment:
       POSTGRES_DB: us-db-ci_purgeable

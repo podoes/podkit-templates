@@ -1,6 +1,6 @@
 services:
   aptabase_db:
-    image: postgres:15-alpine
+    image: postgres:19-alpine
     restart: always
     volumes:
       - db-data:/var/lib/postgresql/data

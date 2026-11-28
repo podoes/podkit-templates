@@ -11,7 +11,7 @@ services:
       - DB_CONFIG=postgres://${POSTGRES_USER}:${POSTGRES_password}@postgres:5432/${postgres_db}?sslmode=disable
 
   postgres:
-    image: postgres:17
+    image: postgres:19
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD

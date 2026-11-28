@@ -19,7 +19,7 @@ services:
       - botpress-db
 
   botpress-db:
-    image: postgres:15-alpine
+    image: postgres:19-alpine
     restart: unless-stopped
     environment:
       - POSTGRES_USER=postgres

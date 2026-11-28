@@ -15,7 +15,7 @@ services:
     pull_policy: always
 
   ryot-db:
-    image: postgres:16-alpine
+    image: postgres:19-alpine
 
     volumes:
       - ryot-postgres-data:/var/lib/postgresql/data

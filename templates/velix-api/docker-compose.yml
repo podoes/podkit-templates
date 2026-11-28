@@ -21,7 +21,7 @@ services:
       - redis
 
   postgres:
-    image: postgres:16-alpine
+    image: postgres:19-alpine
     restart: always
     environment:
       - POSTGRES_DB=velix

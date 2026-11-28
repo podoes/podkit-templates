@@ -24,7 +24,7 @@ services:
       - app-config:/app/config
   
   postgres-langflow:
-    image: postgres:16
+    image: postgres:19
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d langflow"]

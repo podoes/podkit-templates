@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:17
+    image: postgres:19
     restart: unless-stopped
     volumes:
       - fiderPostgresData:/var/lib/postgresql/data

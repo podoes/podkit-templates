@@ -26,7 +26,7 @@ services:
     restart: unless-stopped
 
   rote-postgres:
-    image: postgres:17
+    image: postgres:19
     restart: unless-stopped
     environment:
       POSTGRES_USER: rote

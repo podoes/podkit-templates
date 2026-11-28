@@ -43,7 +43,7 @@ services:
       REDIS_HOST: superset_redis
 
   superset_postgres:
-    image: postgres:18
+    image: postgres:19
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER}

@@ -2,7 +2,7 @@
 # Variables come from template.toml. Keep the rest in sync with ../docker-compose.dokploy.yml.
 services:
   db:
-    image: postgres:17
+    image: postgres:19
     restart: unless-stopped
     environment:
       POSTGRES_USER: shopnex

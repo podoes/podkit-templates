@@ -16,7 +16,7 @@ services:
       - "3000"
 
   database:
-    image: postgres:17.7-alpine
+    image: postgres:19.0-alpine
     restart: unless-stopped
     environment:
       - POSTGRES_USER=hedgedoc

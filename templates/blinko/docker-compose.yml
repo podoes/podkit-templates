@@ -19,7 +19,7 @@ services:
     expose:
       - 1111
   blinko-postgres:
-    image: postgres:14
+    image: postgres:19
     restart: always
     environment:
       POSTGRES_DB: postgres

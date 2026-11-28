@@ -18,7 +18,7 @@ services:
 
   # PostgreSQL database
   db:
-    image: postgres:17-alpine
+    image: postgres:19-alpine
     restart: unless-stopped
     expose:
       - 5432

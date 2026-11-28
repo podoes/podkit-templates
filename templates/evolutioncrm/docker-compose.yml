@@ -218,7 +218,7 @@ services:
       - VITE_FRONT_URL=${FRONT_URL}
 
   postgres:
-    image: postgres:16-alpine
+    image: postgres:19-alpine
     restart: always
     volumes:
       - postgres-data:/var/lib/postgresql/data

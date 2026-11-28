@@ -51,7 +51,7 @@ services:
       - /etc/dex/config.yaml
 
   postgres:
-    image: postgres:15
+    image: postgres:19
     restart: always
     environment:
       POSTGRES_DB: outline

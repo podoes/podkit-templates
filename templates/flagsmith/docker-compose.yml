@@ -7,7 +7,7 @@ volumes:
 
 services:
   postgres:
-    image: postgres:15.5-alpine
+    image: postgres:19.0-alpine
     environment:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: flagsmith

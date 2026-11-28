@@ -88,7 +88,7 @@ services:
         exec prefect worker start --pool local-pool
 
   prefect-postgres:
-    image: postgres:14-alpine
+    image: postgres:19-alpine
     restart: unless-stopped
     environment:
       - POSTGRES_USER=prefect

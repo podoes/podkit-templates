@@ -49,7 +49,7 @@ services:
 
   db:
     restart: 'always'
-    image: postgres:17-alpine
+    image: postgres:19-alpine
     environment:
       PGUSER: postgres
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"

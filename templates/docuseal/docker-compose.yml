@@ -11,7 +11,7 @@ services:
       - DATABASE_URL=postgresql://${POSTGRES_USER:-docuseal}:${POSTGRES_PASSWORD}@docu-postgres:5432/${POSTGRES_DB:-docuseal}
       
   docu-postgres:
-    image: postgres:18
+    image: postgres:19
     volumes:
       - docuseal-db:/var/lib/postgresql
     environment:

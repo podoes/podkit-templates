@@ -13,7 +13,7 @@ services:
       - ../files/addons:/mnt/extra-addons
 
   db:
-    image: postgres:15
+    image: postgres:19
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=odoo

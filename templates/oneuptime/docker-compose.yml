@@ -103,7 +103,7 @@ services:
         condition: service_started
 
   postgres:
-    image: postgres:15
+    image: postgres:19
     restart: unless-stopped
     environment:
       - POSTGRES_USER=postgres

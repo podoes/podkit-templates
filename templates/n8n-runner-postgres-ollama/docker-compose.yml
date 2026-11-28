@@ -124,7 +124,7 @@ services:
       - redis_storage:/data
       
   postgres:
-    image: postgres:17-alpine
+    image: postgres:19-alpine
     hostname: postgres
     restart: unless-stopped
     environment:

@@ -2,7 +2,7 @@ name: usesend-prod
 
 services:
   usesend-db-prod:
-    image: postgres:16
+    image: postgres:19
 
     restart: always
     environment:

@@ -22,7 +22,7 @@ services:
     command: npm run start:prod
 
   postgres:
-    image: postgres:13
+    image: postgres:19
     restart: always
     deploy: # Please adjust the resource according to your usecase
       resources:

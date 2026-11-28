@@ -19,7 +19,7 @@ services:
       - cloudreve_data:/cloudreve/data
 
   postgresql:
-    image: postgres:17
+    image: postgres:19
     restart: unless-stopped
     environment:
       - POSTGRES_USER

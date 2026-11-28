@@ -28,7 +28,7 @@ services:
       - redis_infisical_data:/data
 
   db:
-    image: postgres:14-alpine
+    image: postgres:19-alpine
     restart: always
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

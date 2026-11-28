@@ -1,6 +1,6 @@
 services:
   invoiceshelf-postgres:
-    image: postgres:15
+    image: postgres:19
 
     volumes:
       - invoiceshelf-postgres-data:/var/lib/postgresql/data

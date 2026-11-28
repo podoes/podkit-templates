@@ -26,7 +26,7 @@ services:
     depends_on:
       - budget-board-server
   budget-board-db:
-    image: postgres:16
+    image: postgres:19
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
