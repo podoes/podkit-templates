@@ -1,6 +1,6 @@
 services:
   heyform:
-    image: heyform/community-edition:v0.1.0
+    image: heyform/community-edition:v3.0.8
     restart: always
     volumes:
       # Persist uploaded images
