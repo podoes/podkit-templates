@@ -13,7 +13,7 @@ services:
       - NODE_ENV=production
       - LOG_LEVEL=info
     restart: unless-stopped
-    image: sonny93/my-links:5.3.0
+    image: sonny93/my-links:5.6.1
     expose:
       - 3333
     depends_on:
