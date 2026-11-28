@@ -61,7 +61,7 @@ services:
       - dbdata:/var/lib/postgresql/data
 
   argilla-redis:
-    image: redis:7-alpine
+    image: redis:8-alpine
     restart: unless-stopped
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}

@@ -112,7 +112,7 @@ services:
       - "sleep 3; ollama pull llama3.2:latest; ollama pull gemma3:latest"
 
   redis:
-    image: redis:7-alpine
+    image: redis:8-alpine
     restart: unless-stopped
     command: redis-server --appendonly yes
     healthcheck:

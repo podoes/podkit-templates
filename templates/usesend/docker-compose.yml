@@ -20,7 +20,7 @@ services:
       - database:/var/lib/postgresql/data
 
   usesend-redis-prod:
-    image: redis:7
+    image: redis:8
 
     restart: always
     # ports:

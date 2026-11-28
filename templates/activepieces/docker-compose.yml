@@ -46,7 +46,7 @@ services:
       retries: 3
 
   redis:
-    image: redis:7
+    image: redis:8
     restart: unless-stopped
 
     volumes:

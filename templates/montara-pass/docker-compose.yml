@@ -19,7 +19,7 @@ services:
   # rate limit counts and idempotent answers. All of it expires within the
   # hour, so nothing is written to disk.
   redis:
-    image: redis:7.4-alpine
+    image: redis:8.12-alpine
     restart: unless-stopped
     command: ['redis-server', '--save', '', '--appendonly', 'no']
     healthcheck:
