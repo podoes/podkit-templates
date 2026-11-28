@@ -1,6 +1,6 @@
 services:
   snipe-it:
-    image: snipe/snipe-it:v8.5.0
+    image: snipe/snipe-it:v8.8.4
     restart: unless-stopped
     expose:
       - 80
