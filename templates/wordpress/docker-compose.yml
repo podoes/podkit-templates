@@ -41,7 +41,7 @@ services:
     restart: unless-stopped
 
   wp_db:
-    image: mysql:8.4
+    image: mysql:26.10
     restart: unless-stopped
     volumes:
       - wp_data:/var/lib/mysql
