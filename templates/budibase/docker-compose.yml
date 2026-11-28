@@ -100,7 +100,7 @@ services:
       retries: 3
 
   proxy:
-    image: budibase/proxy:3.23.47
+    image: budibase/proxy:v3.51.0
     restart: unless-stopped
     environment:
       PROXY_RATE_LIMIT_WEBHOOKS_PER_SECOND: 10
