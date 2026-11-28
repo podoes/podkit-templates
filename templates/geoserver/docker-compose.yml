@@ -1,6 +1,6 @@
 services:
   geoserver:
-    image: kartoza/geoserver:2.24.1
+    image: kartoza/geoserver:3.0.2
     depends_on:
       - db
     environment:
