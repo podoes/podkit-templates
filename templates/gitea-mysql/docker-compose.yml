@@ -24,7 +24,7 @@ services:
       retries: 10
 
   mysql:
-    image: docker.io/library/mysql:8
+    image: docker.io/library/mysql:26
     restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-gitea}
