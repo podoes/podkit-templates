@@ -59,7 +59,7 @@ services:
       - langfuse-minio-data:/data
 
   redis:
-    image: docker.io/redis:7
+    image: docker.io/redis:8
     restart: unless-stopped
     command: >
       --requirepass ${REDIS_AUTH}
