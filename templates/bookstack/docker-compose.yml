@@ -1,6 +1,6 @@
 services:
   bookstack:
-    image: lscr.io/linuxserver/bookstack:24.12.1
+    image: lscr.io/linuxserver/bookstack:24.12.20241223
     restart: unless-stopped
     expose:
       - 80
