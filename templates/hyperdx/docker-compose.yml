@@ -1,6 +1,6 @@
 services:
   hyperdx:
-    image: hyperdx/hyperdx:2.38.0
+    image: hyperdx/hyperdx:2.47.0
     restart: unless-stopped
     depends_on:
       mongodb:
