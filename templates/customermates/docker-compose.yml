@@ -20,7 +20,7 @@ services:
       - 4000
 
   customermates-postgres:
-    image: postgres:16.15-alpine
+    image: postgres:16.16-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
