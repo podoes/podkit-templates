@@ -1,6 +1,6 @@
 services:
   tuwunel:
-    image: ghcr.io/matrix-construct/tuwunel:v1.5.0
+    image: ghcr.io/matrix-construct/tuwunel:v1.9.4
     restart: always
     environment:
       - TUWUNEL_SERVER_NAME=${TUWUNEL_SERVER_NAME:-matrix.local}
