@@ -1,6 +1,6 @@
 services:
   falkordb:
-    image: falkordb/falkordb:v4.20.4-alpine
+    image: falkordb/falkordb:v4.22.5-alpine
     restart: unless-stopped
     environment:
       - REDIS_ARGS=--requirepass ${FALKORDB_PASSWORD} --appendonly yes
