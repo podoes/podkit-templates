@@ -1,6 +1,6 @@
 services:
   imgproxy:
-    image: darthsim/imgproxy:v3.30.1
+    image: darthsim/imgproxy:v4.0.25
     restart: unless-stopped
     expose:
       - 8080
