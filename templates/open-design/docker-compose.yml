@@ -1,6 +1,6 @@
 services:
   open-design:
-    image: ghcr.io/nexu-io/od:0.16.1
+    image: ghcr.io/nexu-io/od:0.27.1
     restart: unless-stopped
     environment:
       NODE_ENV: production
