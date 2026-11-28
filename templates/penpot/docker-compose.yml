@@ -51,7 +51,7 @@ services:
       PENPOT_FLAGS: disable-email-verification enable-smtp enable-prepl-server disable-secure-session-cookies
 
   penpot-backend:
-    image: "penpotapp/backend:2.6.1"
+    image: "penpotapp/backend:2.19.5"
     restart: always
 
     volumes:
