@@ -1,6 +1,6 @@
 services:
   ontime:
-    image: getontime/ontime:v3.8.0
+    image: getontime/ontime:v3.16.1
     expose:
       - 4001
       - 8888
