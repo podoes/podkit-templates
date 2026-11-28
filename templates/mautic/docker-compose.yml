@@ -23,7 +23,7 @@ services:
   # Service 2: Mautic Web (The Leader)
   # -------------------------------------------------------------------------
   mautic:
-    image: mautic/mautic:5.1.1-apache
+    image: mautic/mautic:5.2.12-apache
     restart: unless-stopped
     depends_on:
       mysql:
@@ -61,7 +61,7 @@ services:
   # Service 3: Mautic Cron (Waits for Install)
   # -------------------------------------------------------------------------
   mautic-cron:
-    image: mautic/mautic:5.1.1-apache
+    image: mautic/mautic:5.2.12-apache
     restart: unless-stopped
     depends_on:
       mautic:
@@ -82,7 +82,7 @@ services:
   # Service 4: Mautic Worker (Waits for Install)
   # -------------------------------------------------------------------------
   mautic-worker:
-    image: mautic/mautic:5.1.1-apache
+    image: mautic/mautic:5.2.12-apache
     restart: unless-stopped
     depends_on:
       mautic:
