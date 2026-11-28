@@ -13,7 +13,7 @@
 
 services:
   opencloud:
-    image: opencloudeu/opencloud:7.2
+    image: opencloudeu/opencloud:9.1
     restart: unless-stopped
     entrypoint: /bin/sh
     command: ["-c", "opencloud init || true; opencloud server"]
