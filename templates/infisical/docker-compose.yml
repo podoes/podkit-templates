@@ -1,6 +1,6 @@
 services:
   backend:
-    image: infisical/infisical:v0.162.6
+    image: infisical/infisical:v0.167.17
     restart: unless-stopped
     depends_on:
       db:
