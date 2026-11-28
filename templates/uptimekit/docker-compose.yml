@@ -1,6 +1,6 @@
 services:
   dash:
-    image: ghcr.io/uptimekit/dash:5.2.1
+    image: ghcr.io/uptimekit/dash:5.2.3
     env_file:
       - .env
     environment:
