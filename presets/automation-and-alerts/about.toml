@@ -1,0 +1,7 @@
+name = "Automation and alerts"
+description = "Let the server do the watching. n8n runs workflows between your services, changedetection.io tells you when a web page changes and Gotify delivers the messages to your phone. After applying, route a hostname to each on its page."
+tags = ["homelab", "automation", "notifications", "n8n"]
+maintainers = []
+
+[secrets]
+n8n-with-postgres-hostname = "The hostname you will route to n8n with Postgres, such as n8n-with-postgres.example.com, without https://."

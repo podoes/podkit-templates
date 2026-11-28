@@ -1,0 +1,7 @@
+name = "Household"
+description = "The running of a home, on your own server: Actual Budget for the money, Mealie for recipes and the week's meals, and Homebox for what you own and where it is. After applying, route a hostname to each on its page."
+tags = ["homelab", "family", "budget", "recipes", "inventory"]
+maintainers = []
+
+[secrets]
+mealie-hostname = "The hostname you will route to Mealie (sqlite version), such as mealie.example.com, without https://."

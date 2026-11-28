@@ -1,0 +1,106 @@
+version = 1
+
+[projects.reading]
+name = "Reading and bookmarks"
+
+[projects.reading.environments.production]
+name = "Production"
+
+[projects.reading.environments.production.stacks.freshrss]
+server = "${choose}"
+source = "template:freshrss@latest"
+compose = '''
+services:
+  freshrss:
+    image: freshrss/freshrss:${FRESHRSS_VERSION:-latest}
+    restart: unless-stopped
+    volumes:
+      # FreshRSS persistent data such as configuration and SQLite databases
+      - freshrss_data:/var/www/FreshRSS/data
+      # Optional volume for storing third-party extensions
+      - freshrss_extensions:/var/www/FreshRSS/extensions
+    expose:
+      - "80"
+    environment:
+      # Server timezone
+      TZ: ${TZ:-UTC}
+      # Cron job to refresh feeds at specified minutes
+      CRON_MIN: ${CRON_MIN:-13,43}
+      # Production or development mode
+      FRESHRSS_ENV: ${FRESHRSS_ENV:-production}
+      # Copy logs to syslog
+      COPY_LOG_TO_SYSLOG: ${COPY_LOG_TO_SYSLOG:-On}
+      # Copy syslog to stderr for docker logs
+      COPY_SYSLOG_TO_STDERR: ${COPY_SYSLOG_TO_STDERR:-On}
+      # Optional auto-install parameters
+      FRESHRSS_INSTALL: ${FRESHRSS_INSTALL:-}
+      # Optional auto-create user parameters
+      FRESHRSS_USER: ${FRESHRSS_USER:-}
+
+volumes:
+  freshrss_data:
+  freshrss_extensions:
+'''
+
+[projects.reading.environments.production.stacks.freshrss.env]
+COPY_LOG_TO_SYSLOG = "On"
+COPY_SYSLOG_TO_STDERR = "On"
+CRON_MIN = "13,43"
+FRESHRSS_ENV = "production"
+FRESHRSS_VERSION = "latest"
+TZ = "UTC"
+
+[projects.reading.environments.production.stacks.linkding]
+server = "${choose}"
+source = "template:linkding@latest"
+compose = '''
+services:
+  linkding:
+    image: sissbruecker/linkding:latest
+    restart: unless-stopped
+    expose:
+      - 9090
+    volumes:
+      - ../files/linkding-data:/etc/linkding/data
+'''
+
+[projects.reading.environments.production.stacks.linkding.env]
+LD_AUTH_PROXY_LOGOUT_URL = ""
+LD_AUTH_PROXY_USERNAME_HEADER = ""
+LD_CONTEXT_PATH = ""
+LD_CSRF_TRUSTED_ORIGINS = "${secret:linkding-hostname}"
+LD_DB_DATABASE = ""
+LD_DB_ENGINE = ""
+LD_DB_HOST = ""
+LD_DB_OPTIONS = "{}"
+LD_DB_PASSWORD = "${generate:linkding-db-password}"
+LD_DB_PORT = ""
+LD_DB_USER = ""
+LD_DISABLE_BACKGROUND_TASKS = "False"
+LD_DISABLE_URL_VALIDATION = "False"
+LD_ENABLE_AUTH_PROXY = "False"
+LD_SUPERUSER_NAME = "admin"
+LD_SUPERUSER_PASSWORD = "${generate:linkding-superuser-password}"
+
+[projects.reading.environments.production.stacks.memos]
+server = "${choose}"
+source = "template:memos@latest"
+compose = '''
+services:
+  memos:
+    image: neosmemo/memos:stable
+    restart: unless-stopped
+    volumes:
+      - memos_data:/var/opt/memos
+    environment:
+      - MEMOS_MODE=${MEMOS_MODE}
+      - MEMOS_PORT=${MEMOS_PORT}
+    expose:
+      - "5230"
+volumes:
+  memos_data:
+'''
+
+[projects.reading.environments.production.stacks.memos.env]
+MEMOS_MODE = "prod"
+MEMOS_PORT = "5230"

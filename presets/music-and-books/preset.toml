@@ -1,0 +1,57 @@
+version = 1
+
+[projects.shelf]
+name = "Music and books"
+
+[projects.shelf.environments.production]
+name = "Production"
+
+[projects.shelf.environments.production.stacks.navidrome]
+server = "${choose}"
+source = "template:navidrome@latest"
+compose = '''
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    restart: unless-stopped
+    environment:
+      - ND_SCANSCHEDULE=1h
+      - ND_LOGLEVEL=info
+      - ND_SESSIONTIMEOUT=24h
+    volumes:
+      - navidrome-data:/data
+      - navidrome-music:/music:ro
+    expose:
+      - 4533
+volumes:
+  navidrome-data: {}
+  navidrome-music: {}
+'''
+
+[projects.shelf.environments.production.stacks.kavita]
+server = "${choose}"
+source = "template:kavita@latest"
+compose = '''
+services:
+  kavita:
+    image: jvmilazz0/kavita:latest
+    restart: unless-stopped
+    expose:
+      - "5000"
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - kavita-config:/kavita/config
+      - kavita-media:/manga
+      - kavita-books:/books
+      - kavita-comics:/comics
+
+volumes:
+  kavita-config:
+  kavita-media:
+  kavita-books:
+  kavita-comics:
+'''
+
+[projects.shelf.environments.production.stacks.kavita.env]
+TZ = "Etc/UTC"

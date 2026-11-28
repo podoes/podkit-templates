@@ -1,0 +1,105 @@
+version = 1
+
+[projects.automation]
+name = "Automation and alerts"
+
+[projects.automation.environments.production]
+name = "Production"
+
+[projects.automation.environments.production.stacks.n8n-with-postgres]
+server = "${choose}"
+source = "template:n8n-with-postgres@latest"
+compose = '''
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      start_period: 30s
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  n8n:
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    environment:
+      # Configuration PostgreSQL
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB}
+      - DB_POSTGRESDB_USER=${POSTGRES_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+      
+      # SÉCURITÉ - Encryption (IMPORTANT)
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      
+      # Configuration réseau
+      - N8N_HOST=${N8N_HOST}
+      - N8N_PORT=${N8N_PORT}
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://${N8N_HOST}/
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+      - N8N_SECURE_COOKIE=false
+      
+    volumes:
+      - n8n_data:/home/node/.n8n
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  n8n_data:
+  postgres_data:
+'''
+
+[projects.automation.environments.production.stacks.n8n-with-postgres.env]
+GENERIC_TIMEZONE = "Europe/Berlin"
+N8N_ENCRYPTION_KEY = "${generate:n8n-with-postgres-n8n-encryption-key}"
+N8N_HOST = "${secret:n8n-with-postgres-hostname}"
+N8N_PORT = "5678"
+POSTGRES_DB = "n8n"
+POSTGRES_PASSWORD = "${generate:n8n-with-postgres-postgres-password}"
+POSTGRES_USER = "admin"
+
+[projects.automation.environments.production.stacks.changedetection]
+server = "${choose}"
+source = "template:changedetection@0.49"
+compose = '''
+services:
+  changedetection:
+    image: ghcr.io/dgtlmoon/changedetection.io:0.49
+    restart: unless-stopped
+    expose:
+      - 5000
+    volumes:
+      - datastore:/datastore
+
+volumes:
+  datastore:
+'''
+
+[projects.automation.environments.production.stacks.gotify]
+server = "${choose}"
+source = "template:gotify@2.9.1"
+compose = '''
+services:
+  gotify:
+    image: gotify/server:2.9.1
+    restart: unless-stopped
+    volumes:
+      - gotify_data:/app/data
+    expose:
+      - "80"
+volumes:
+  gotify_data:
+'''

@@ -1,0 +1,4 @@
+name = "Music and books"
+description = "A shelf for what you listen to and read. Navidrome streams your music to any Subsonic app, and Kavita is a reader for books, comics and manga. Each keeps its library in its own volumes. After applying, route a hostname to each on its page."
+tags = ["homelab", "media", "music", "books"]
+maintainers = []

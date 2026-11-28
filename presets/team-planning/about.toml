@@ -1,0 +1,8 @@
+name = "Team planning"
+description = "Where a small team plans and keeps track: Docmost for documents written together, NocoDB for tables that work like a database and Kimai for tracking time. After applying, route a hostname to each on its page. Kimai's first account is admin@kimai.local; podkit makes up its password, which you read as KI_ADMINPASS in the stack's variables."
+tags = ["team", "docs", "tables", "time-tracking"]
+maintainers = []
+
+[secrets]
+docmost-hostname = "The hostname you will route to Docmost, such as docmost.example.com, without https://."
+kimai-hostname = "The hostname you will route to Kimai, such as kimai.example.com, without https://."
