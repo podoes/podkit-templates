@@ -1,6 +1,6 @@
 services:
   confluence:
-    image: atlassian/confluence-server:8.6-ubuntu-jdk17
+    image: atlassian/confluence-server:8.8-ubuntu-jdk17
     expose:
       - "8090"
     volumes:
