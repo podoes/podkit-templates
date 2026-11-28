@@ -1,6 +1,6 @@
 services:
   mailpit:
-    image: axllent/mailpit:v1.22.3
+    image: axllent/mailpit:v1.34.0
     restart: unless-stopped
     expose:
       - 1025 # SMTP — other services reach it over the internal Docker network (mailpit:1025)
