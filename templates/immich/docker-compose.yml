@@ -1,6 +1,6 @@
 services:
   immich-server:
-    image: ghcr.io/immich-app/immich-server:v3.0.2
+    image: ghcr.io/immich-app/immich-server:v3.4.2
 
     volumes:
       - immich-library:/data
@@ -28,7 +28,7 @@ services:
       disable: false
 
   immich-machine-learning:
-    image: ghcr.io/immich-app/immich-machine-learning:v3.0.2
+    image: ghcr.io/immich-app/immich-machine-learning:v3.4.2
 
     volumes:
       - immich-model-cache:/cache
