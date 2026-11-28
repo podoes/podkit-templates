@@ -16,7 +16,7 @@ services:
       - mysql
 
   mysql:
-    image: mysql:8
+    image: mysql:26
     environment:
       MYSQL_ROOT_PASSWORD: ${mysql_root_password}
     volumes:
