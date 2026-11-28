@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: postgres
 
   control-api:
-    image: ghcr.io/datalens-tech/datalens-control-api:0.2192.0
+    image: ghcr.io/datalens-tech/datalens-control-api:0.2695.0
     restart: always
     environment:
       BI_API_UWSGI_WORKERS_COUNT: 4
