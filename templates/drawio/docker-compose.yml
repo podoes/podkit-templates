@@ -14,7 +14,7 @@ services:
     environment:
       - DRAWIO_BASE_URL=${DRAWIO_BASE_URL}
   drawio:
-    image: jgraph/drawio:24.7.17
+    image: jgraph/drawio:32.7.7
     expose:
       - "8080"
     links:
