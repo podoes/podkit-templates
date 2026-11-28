@@ -1,0 +1,4 @@
+name = "Database and search"
+description = "A Postgres database and a Meilisearch instance for full-text search, with a volume for the index. The Meilisearch master key is generated."
+tags = ["postgres", "search", "meilisearch"]
+maintainers = []

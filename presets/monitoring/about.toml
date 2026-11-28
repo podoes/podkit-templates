@@ -1,0 +1,4 @@
+name = "Monitoring"
+description = "Prometheus to collect metrics and Grafana to chart them, each with a volume for its data. Grafana's admin password is generated; add Prometheus in Grafana as a data source to start."
+tags = ["monitoring", "prometheus", "grafana", "metrics"]
+maintainers = []

@@ -1,0 +1,87 @@
+version = 1
+
+[projects.site]
+name = "Blog with analytics"
+
+[projects.site.environments.production]
+name = "Production"
+
+[projects.site.environments.production.stacks.ghost]
+server = "${choose}"
+source = "template:ghost@6.0.0"
+compose = '''
+services:
+  ghost:
+    image: ghost:6-alpine
+    restart: always
+    environment:
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: root
+      database__connection__password: example
+      database__connection__database: ghost
+      url: http://${GHOST_HOST}
+
+    volumes:
+      - ghost:/var/lib/ghost/content
+
+  db:
+    image: mysql:8.0
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  ghost:
+  db:
+'''
+
+[projects.site.environments.production.stacks.ghost.env]
+GHOST_HOST = "${secret:ghost-hostname}"
+
+[projects.site.environments.production.stacks.umami]
+server = "${choose}"
+source = "template:umami@v3.4.1"
+compose = '''
+services:
+  umami:
+    image: ghcr.io/umami-software/umami:3.4.1
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl http://localhost:3000/api/heartbeat"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://umami:${DB_PASSWORD}@db:5432/umami
+      DATABASE_TYPE: postgresql
+      APP_SECRET: ${APP_SECRET}
+  db:
+    image: postgres:15-alpine
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: umami
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+volumes:
+  db-data:
+'''
+
+[projects.site.environments.production.stacks.umami.env]
+APP_SECRET = "${generate:umami-app-secret}"
+DB_PASSWORD = "${generate:umami-db-password}"

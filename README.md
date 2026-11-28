@@ -23,6 +23,10 @@ The scripts need Python 3.11 or later and nothing else. With [devenv](https://de
 shell brings it, `serve` (builds and serves `dist/` at http://127.0.0.1:8767) and git hooks
 that run the same check before each commit.
 
+The website (`site/`) wears podkit's design: the tokens, fonts and components of the podoes
+design system as podkit ships them (`crates/ui/src/theme.css` and `components.css` there). A
+value that changes in podkit changes in `site/style.css` too.
+
 ## How podkit uses it
 
 GitHub Pages serves `dist/`. podkit downloads `index.json` when an admin presses refresh

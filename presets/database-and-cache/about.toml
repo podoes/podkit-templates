@@ -1,0 +1,4 @@
+name = "Database and cache"
+description = "One environment with a Postgres database and a Redis cache: the usual backing services of a web application, before the application is there."
+tags = ["starter", "postgres", "redis"]
+maintainers = []

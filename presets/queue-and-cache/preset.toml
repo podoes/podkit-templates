@@ -1,0 +1,29 @@
+version = 1
+
+[projects.jobs]
+name = "Jobs"
+
+[projects.jobs.environments.production]
+name = "Production"
+
+[projects.jobs.environments.production.databases.cache]
+server = "${choose}"
+engine = "redis"
+
+[projects.jobs.environments.production.stacks.broker]
+server = "${choose}"
+compose = """
+services:
+  broker:
+    image: docker.io/library/rabbitmq:4-management
+    environment:
+      RABBITMQ_DEFAULT_USER: app
+      RABBITMQ_DEFAULT_PASS: ${BROKER_PASSWORD}
+    volumes:
+      - broker-data:/var/lib/rabbitmq
+volumes:
+  broker-data:
+"""
+
+[projects.jobs.environments.production.stacks.broker.env]
+BROKER_PASSWORD = "${generate:broker-password}"

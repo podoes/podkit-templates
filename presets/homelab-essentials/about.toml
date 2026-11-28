@@ -1,0 +1,7 @@
+name = "Homelab essentials"
+description = "The first things on a homelab: AdGuard Home to filter DNS for the whole network, Vaultwarden for passwords, Uptime Kuma to say when something is down, and a Homepage dashboard that links to all of it. They share the homelab network, so Uptime Kuma and Homepage reach the others by name. AdGuard Home listens on port 53 of the server; after applying, route a hostname to its setup page (port 3000) and to Homepage."
+tags = ["homelab", "dns", "passwords", "monitoring", "dashboard"]
+maintainers = []
+
+[secrets]
+homepage-hostname = "The hostname you will route to Homepage, such as home.example.com, without https://. Homepage answers only to it."
