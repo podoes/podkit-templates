@@ -1,6 +1,6 @@
 services:
   synapse:
-    image: matrixdotorg/synapse:v1.156.0
+    image: matrixdotorg/synapse:v1.166.0
     restart: unless-stopped
     # The stock entrypoint (/start.py) does not generate the signing key when a
     # config file is provided, so generate any missing keys on first boot and
