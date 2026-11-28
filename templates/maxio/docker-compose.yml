@@ -1,6 +1,6 @@
 services:
   maxio:
-    image: ghcr.io/coollabsio/maxio:0.2.1
+    image: ghcr.io/coollabsio/maxio:0.4.2
     expose:
       - 9000
     volumes:
