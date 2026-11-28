@@ -1,6 +1,6 @@
 services:
   filegator:
-    image: filegator/filegator:v7.14.3
+    image: filegator/filegator:v7.16.9
     restart: unless-stopped
     volumes:
       - filegator_repository:/var/www/filegator/repository
