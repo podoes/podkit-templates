@@ -14,7 +14,7 @@ services:
       - caddy-config:/config
 
   backend:
-    image: ghcr.io/zcag/tela-backend:0.7.0
+    image: ghcr.io/zcag/tela-backend:0.11.3
     restart: unless-stopped
     environment:
       - TELA_PUBLIC_BASE_URL=${TELA_PUBLIC_BASE_URL}
