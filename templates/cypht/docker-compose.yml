@@ -1,6 +1,6 @@
 services:
   cypht:
-    image: cypht/cypht:2.13.0
+    image: cypht/cypht:2.15.0
     restart: unless-stopped
     depends_on:
       cypht-db:
