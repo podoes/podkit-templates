@@ -1,6 +1,6 @@
 services:
   cloudreve:
-    image: cloudreve/cloudreve:4.10.1
+    image: cloudreve/cloudreve:4.19.1
     depends_on:
       postgresql:
         condition: service_healthy
