@@ -17,7 +17,7 @@
 
 services:
   seafile-db:
-    image: mariadb:10.11
+    image: mariadb:13.0
     restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=${INIT_SEAFILE_MYSQL_ROOT_PASSWORD:-}

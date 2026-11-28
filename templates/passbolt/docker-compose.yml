@@ -59,7 +59,7 @@ services:
       retries: 10
 
   mariadb:
-    image: mariadb:11
+    image: mariadb:13
     environment:
       MARIADB_ROOT_PASSWORD: ${PASSBOLT_DB_ROOT_PASSWORD}
       MARIADB_DATABASE: ${PASSBOLT_DB_NAME}
