@@ -21,7 +21,7 @@ services:
       - mariadb
 
   mariadb:
-    image: mariadb:11.4
+    image: mariadb:11.8
     restart: unless-stopped
     volumes:
       - mariadb-data:/var/lib/mysql

@@ -46,7 +46,7 @@ services:
         condition: service_healthy
 
   snipe-it-db:
-    image: mariadb:11.4.7
+    image: mariadb:11.8.9
     restart: unless-stopped
     volumes:
       - snipe-it-db-data:/var/lib/mysql
