@@ -1,6 +1,6 @@
 services:
   kividb:
-    image: kividb/kividb:v1.2.0
+    image: kividb/kividb:v1.2.2
     restart: unless-stopped
     command: ["--requirepass", "${KIVIDB_PASSWORD}", "--aof"]
     expose:
