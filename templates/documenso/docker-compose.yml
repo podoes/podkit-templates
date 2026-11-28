@@ -16,7 +16,7 @@ services:
       start_period: 10s
 
   documenso:
-    image: documenso/documenso:v1.12.10
+    image: documenso/documenso:v2.22.0
     depends_on:
       postgres:
         condition: service_healthy
