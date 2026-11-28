@@ -1,6 +1,6 @@
 services:
   hedgedoc:
-    image: quay.io/hedgedoc/hedgedoc:1.10.8
+    image: quay.io/hedgedoc/hedgedoc:1.12.3
     restart: unless-stopped
     depends_on:
       database:
