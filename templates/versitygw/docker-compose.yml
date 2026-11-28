@@ -1,6 +1,6 @@
 services:
   versitygw:
-    image: versity/versitygw:v1.8.0
+    image: versity/versitygw:v1.11.0
     restart: unless-stopped
     environment:
       - ROOT_ACCESS_KEY=${ROOT_ACCESS_KEY}
