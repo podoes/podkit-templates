@@ -2,7 +2,7 @@
 # kuukura-data. After the first start, open the service terminal and run `/ku-server key show` once to back it up.
 services:
   kuukura:
-    image: ghcr.io/victorlunam/kuukura:2026.10.13
+    image: ghcr.io/victorlunam/kuukura:2026.10.16
     restart: unless-stopped
     environment:
       VAULT_DOMAIN: ${VAULT_DOMAIN}
