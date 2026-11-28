@@ -1,6 +1,6 @@
 services:
   web:
-    image: ghcr.io/hoarder-app/hoarder:0.22.0
+    image: ghcr.io/hoarder-app/hoarder:0.35.0
     restart: unless-stopped
     volumes:
       - hoarder-data:/data
