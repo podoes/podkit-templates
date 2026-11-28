@@ -3,7 +3,7 @@
 # Dokploy exposes the internal WebSocket listener (9001) over WSS on port 443.
 services:
   mosquitto:
-    image: eclipse-mosquitto:2.1.2-alpine
+    image: eclipse-mosquitto:2.1.4-alpine
     restart: unless-stopped
     environment:
       - MQTT_USERNAME=${MQTT_USERNAME}
