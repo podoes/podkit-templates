@@ -1,6 +1,6 @@
 services:
   soft-serve:
-    image: charmcli/soft-serve:v0.11.6
+    image: charmcli/soft-serve:v0.12.4
     restart: unless-stopped
     expose:
       - "23231"
