@@ -15,6 +15,15 @@ jobs:
       - uses: actions/checkout@v7
       - run: scripts/build.py --check
 
+  # podkit's own reader is the judge of what an install can load: run it on the catalog.
+  podkit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: >
+          docker run --rm -v "$PWD:/catalog:ro" ghcr.io/podoes/podkit:main
+          /bin/podkit check-templates /catalog
+
   pages:
     if: github.event_name == 'push'
     needs: check
