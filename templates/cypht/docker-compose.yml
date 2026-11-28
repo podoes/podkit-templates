@@ -41,7 +41,7 @@ services:
       - cypht-attachments:/var/lib/hm3/attachments
 
   cypht-db:
-    image: mariadb:10.11
+    image: mariadb:13.0
     restart: unless-stopped
     environment:
       MARIADB_DATABASE: cypht

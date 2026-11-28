@@ -85,7 +85,7 @@ services:
       - S3_BUCKET=${S3_BUCKET}
 
   mysql:
-    image: mariadb:10.11
+    image: mariadb:13.0
     restart: unless-stopped
     environment:
       - MYSQL_DATABASE=${SYSTEM_DB_NAME}

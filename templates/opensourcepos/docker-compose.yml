@@ -21,7 +21,7 @@ services:
       - opensourcepos-logs:/app/writable/logs
 
   opensourcepos-db:
-    image: mariadb:10.11
+    image: mariadb:13.0
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}

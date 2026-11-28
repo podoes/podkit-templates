@@ -102,7 +102,7 @@ services:
         condition: service_healthy
 
   billmora-db:
-    image: mariadb:11
+    image: mariadb:13
     restart: always
     environment:
       - MARIADB_DATABASE=${DB_DATABASE}
