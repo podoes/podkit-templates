@@ -1,6 +1,6 @@
 services:
   appsmith:
-    image: appsmith/appsmith-ee:v1.94
+    image: appsmith/appsmith-ee:v2.4
     volumes:
       - appsmith-data:/appsmith-stacks
     restart: unless-stopped
